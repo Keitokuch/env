@@ -4,7 +4,7 @@ ENV=~/env
 OMZ=~/.oh-my-zsh
 
 # get zsh
-if [ -z "$(which zsh)"]; then
+if [ -z "$(which zsh)" ]; then
 	sudo apt install zsh
 fi 
 
