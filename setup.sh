@@ -2,6 +2,7 @@
 
 ENV=~/env
 OMZ=~/.oh-my-zsh
+TMP=~/.tmux/plugins
 
 # get zsh
 if [ -z "$(which zsh)" ]; then
@@ -17,6 +18,9 @@ fi
 
 # get oh-my-zsh
 sh -c "$(wget https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh -O -)"
+
+# get tpm
+git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 
 # deploy configs
 cp $ENV/keitoku.zsh-theme $OMZ/themes/keitoku.zsh-theme

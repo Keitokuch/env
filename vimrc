@@ -25,4 +25,8 @@ inoremap jj <ESC>
 inoremap kj <ESC>
 inoremap ;l <ESC>
 filetype plugin on
-					  
+
+let Tlist_Show_One_File=1
+let Tlist_Exit_OnlyWindow=1
+let g:winManagerWindowLayout='FileExplorer|TagList'
+nmap wm :WMToggle<cr>
