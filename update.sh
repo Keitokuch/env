@@ -1,6 +1,7 @@
 #! /bin/sh
 
 ENV=~/env
+OMZ=~/.oh-my-zsh
 
 zshrc() {
 	cp $ENV/zshrc ~/.zshrc
@@ -13,12 +14,18 @@ vimrc() {
 
 tm() {
 	cp $ENV/tmux.conf ~/.tmux.conf
-	if [ -n "$TMUX"]; then
+	if [ -n "$TMUX" ]; then
 		tmux source-file -q ~/.tmux.conf 
 	fi
 }
 
-while getopts ":azvt" opt; do
+zshTheme() {
+	cp $ENV/keitoku.zsh-theme $OMZ/themes/keitoku.zsh-theme
+	zsh ~/.zshrc
+}
+
+
+while getopts ":azvtZ" opt; do
 	case $opt in
 		z)
 			zshrc
@@ -32,11 +39,16 @@ while getopts ":azvt" opt; do
 			tm
 			echo "updated .tmux.conf"
 			;;
+		Z)
+			zshTheme
+			echo "updated zsh-theme"
+			;;
 		a)
 			echo "updating all"
 			zshrc
 			vimrc
 			tm 
+			zshTheme
 			;;
 	esac 
 done
