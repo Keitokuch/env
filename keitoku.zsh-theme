@@ -2,7 +2,9 @@
 # PROMPT='${ret_status}%* %{$FG[087]%}%c: %{$FG[194]%}[$(git_prompt_info)%{$FG[194]%}] %{$reset_color%}$ '
 # PROMPT='%{$FG[215]%}❄ %* %{$FG[087]%}%c: $(git_prompt_info)%{$FG[047]%}♨  '
 
-PROMPT='%{$FG[215]%}❄ %* %{$FG[087]%}%~: $(git_prompt_info)%{$FG[047]%}%{$reset_color%}♨  '
+#PROMPT='%{$FG[215]%}❄ %* %{$FG[087]%}%~: $(git_prompt_info)%{$FG[047]%}%{$reset_color%}♨  '
+#PROMPT='%{$FG[215]%}❄ %n@%m %{$FG[087]%}%~: $(git_prompt_info)%{$FG[047]%}%{$reset_color%}♨  '
+PROMPT='%{$FG[215]%}❄ %n %{$FG[087]%}%~: $(git_prompt_info)%{$FG[047]%}%{$reset_color%}♨  '
 # ZSH_THEME_GIT_PROMPT_PREFIX=""
 # ZSH_THEME_GIT_PROMPT_SUFFIX="%{$reset_color%}"
 # ZSH_THEME_GIT_PROMPT_DIRTY="%{$fg[yellow]%}"

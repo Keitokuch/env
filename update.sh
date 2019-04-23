@@ -4,18 +4,31 @@ ENV=~/env
 OMZ=~/.oh-my-zsh
 
 zshrc() {
-	cp $ENV/zshrc ~/.zshrc
+	if [ -f $ENV/zshrc.local ]; then
+		cp $ENV/zshrc.local ~/.zshrc
+	else
+		cp $ENV/zshrc ~/.zshrc
+	fi
 	zsh ~/.zshrc
 }
 
 vimrc() {
-	cp $ENV/vimrc ~/.vimrc
+	if [ -f $ENV/vimrc.local ]; then
+		cp $ENV/vimrc.local ~/.vimrc
+	else
+		cp $ENV/vimrc ~/.vimrc
+	fi 
 }
 
 tm() {
-	cp $ENV/tmux.conf ~/.tmux.conf
+	if [ -f $ENV/tmux.conf.local ]; then
+		cp $ENV/tmux.conf.local ~/.tmux.conf
+	else
+		cp $ENV/tmux.conf ~/.tmux.conf
+	fi
+
 	if [ -n "$TMUX" ]; then
-		tmux source-file -q ~/.tmux.conf 
+		tmux source-file ~/.tmux.conf 
 	fi
 }
 
