@@ -24,6 +24,7 @@ endif
 inoremap jj <ESC>
 inoremap kj <ESC>
 inoremap ;l <ESC>
+nnoremap <C-k> <C-w>
 filetype plugin on
 
 let Tlist_Show_One_File=1
