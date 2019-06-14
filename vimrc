@@ -46,8 +46,8 @@ nmap wm :WMToggle<cr>
 
 hi CursorLine cterm=NONE ctermbg=22
 hi CursorColumn cterm=NONE ctermbg=22
-autocmd InsertEnter * set cul
-autocmd InsertLeave * set nocul 
+""autocmd InsertEnter * set cul
+""autocmd InsertLeave * set nocul 
 ""autocmd InsertEnter * set cursorcolumn
 ""autocmd InsertLeave * set nocursorcolumn
 
@@ -56,8 +56,10 @@ autocmd InsertLeave * set nocul
 ""let &t_SR = "\<Esc>[2 q"
 
 ""let &t_SI = "\<esc>[5 q"  " blinking I-beam in insert mode
-""let &t_SR = "\<esc>[3 q"  " blinking underline in replace mode
+""let &t_SI = "\<esc>[3 q"  " steady underline in insert mode
+""let &t_SR = "\<esc>[0 q"  " blinking block in replace mode
 ""let &t_EI = "\<esc>[2 q"  " default cursor (usually blinking block) otherwise]"]"]"
+
 if exists('$TMUX')
 	let &t_SI = "\ePtmux;\e\e[5 q\e\\"
 	let &t_EI = "\ePtmux;\e\e[2 q\e\\"
@@ -65,3 +67,4 @@ else
 	let &t_SI = "\e[5 q"
 	let &t_EI = "\e[2 q"
 endif
+
