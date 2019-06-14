@@ -44,12 +44,29 @@ let Tlist_Exit_OnlyWindow=1
 let g:winManagerWindowLayout='FileExplorer|TagList'
 nmap wm :WMToggle<cr>
 
+" Cursor Configuration !!
+" 5 for blinking I-beam
+" 3 for blinking underline
+" 2 for blinking block
+
 hi CursorLine cterm=NONE ctermbg=22
 hi CursorColumn cterm=NONE ctermbg=22
 ""autocmd InsertEnter * set cul
 ""autocmd InsertLeave * set nocul 
 ""autocmd InsertEnter * set cursorcolumn
 ""autocmd InsertLeave * set nocursorcolumn
+
+autocmd VimLeave * silent !echo -ne "\e[3 q"
+autocmd VimEnter * silent !echo -ne "\e[2 q"
+
+if exists('$TMUX')
+	let &t_SI = "\ePtmux;\e\e[3 q\e\\"
+	let &t_EI = "\ePtmux;\e\e[2 q\e\\"
+else
+	let &t_SI = "\e[3 q"
+	let &t_EI = "\e[2 q"
+endif
+
 
 ""let &t_SI = "\<Esc>[6 q"
 ""let &t_SR = "\<Esc>[4 q"
@@ -60,11 +77,4 @@ hi CursorColumn cterm=NONE ctermbg=22
 ""let &t_SR = "\<esc>[0 q"  " blinking block in replace mode
 ""let &t_EI = "\<esc>[2 q"  " default cursor (usually blinking block) otherwise]"]"]"
 
-if exists('$TMUX')
-	let &t_SI = "\ePtmux;\e\e[5 q\e\\"
-	let &t_EI = "\ePtmux;\e\e[2 q\e\\"
-else
-	let &t_SI = "\e[5 q"
-	let &t_EI = "\e[2 q"
-endif
 
