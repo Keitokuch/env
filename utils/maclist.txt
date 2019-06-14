@@ -32,3 +32,20 @@ Logic Pro X
 Riffstation
 ArcSoft Photo+
 SMBUp
+Dash
+VMware Fusion
+Docker
+Motrix
+Kantu
+YinxiangBiji
+Photon
+Listen1
+Tencent Lemon
+Iterm2
+Money Pro
+ShadowsocksX-NG
+Impactor
+Macs Fan Control 
+Aria2GUI
+Bear
+Dr. Unarchiver
