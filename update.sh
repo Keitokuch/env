@@ -58,10 +58,10 @@ while getopts ":azvtZ" opt; do
 			;;
 		a)
 			echo "updating all"
-			zshrc
 			vimrc
 			tm 
 			zshTheme
+			zshrc
 			;;
 	esac 
 done

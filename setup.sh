@@ -7,7 +7,7 @@ TMP=~/.tmux/plugins
 # get zsh
 if [ -z "$(which zsh)" ]; then
 	sudo apt install zsh
-	chsh -s /bin/zsh 
+	chsh -s $(which zsh) 
 fi 
 
 
