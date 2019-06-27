@@ -1,5 +1,5 @@
 [
-	{ "keys": ["super+k"], "command": "toggle_side_bar" },
+	{ "keys": ["primary+k"], "command": "toggle_side_bar" },
 
 	{ "keys": ["j", "j"], "command": "exit_insert_mode",
 		"context":
@@ -30,8 +30,8 @@
 
 	{ "keys": ["ctrl+tab"], "command": "next_view" },
 	{ "keys": ["ctrl+shift+tab"], "command": "prev_view" },
-	{ "keys": ["super+]"], "command": "next_view" },
-	{ "keys": ["super+["], "command": "prev_view" },
+	{ "keys": ["primary+]"], "command": "next_view" },
+	{ "keys": ["primary+["], "command": "prev_view" },
 	// { "keys": ["super+down"], 
 	// 	"command": "set_motion", 
 	// 	"args": 
@@ -65,6 +65,6 @@
 	// 		{ "key": "setting.vintage_ctrl_keys"}
 	// 	]
 	// },
-	{ "keys": ["q", "w"], "command": "scroll_lines", "args": {"amount": -20.0}, "context":[{ "key": "setting.command_mode"}] },
-	{ "keys": ["w", "q"], "command": "scroll_lines", "args": {"amount": 20.0}, "context":[{ "key": "setting.command_mode"}]  }
+	// { "keys": ["q", "w"], "command": "scroll_lines", "args": {"amount": -20.0}, "context":[{ "key": "setting.command_mode"}] },
+	// { "keys": ["w", "q"], "command": "scroll_lines", "args": {"amount": 20.0}, "context":[{ "key": "setting.command_mode"}]  }
 ]
