@@ -37,7 +37,7 @@ inoremap <expr> ] strpart(getline('.'), col('.')-1, 1) == "]" ? "\<Right>" : "]"
 inoremap <expr> } strpart(getline('.'), col('.')-1, 1) == "}" ? "\<Right>" : "}"
 inoremap <expr> ) strpart(getline('.'), col('.')-1, 1) == ")" ? "\<Right>" : ")"
 
-filetype plugin on
+""filetype plugin on
 
 let Tlist_Show_One_File=1
 let Tlist_Exit_OnlyWindow=1
@@ -77,4 +77,11 @@ endif
 ""let &t_SR = "\<esc>[0 q"  " blinking block in replace mode
 ""let &t_EI = "\<esc>[2 q"  " default cursor (usually blinking block) otherwise]"]"]"
 
+"" ----------------- Vim-Plug ---------------
+call plug#begin('~/.vim/plugged') 
 
+Plug 'scrooloose/nerdtree', {'on': 'NERDTreeToggle' }
+Plug 'airblade/vim-gitgutter'
+
+call plug#end() 
+"" --------------- END Vim-Plug -------------
