@@ -76,7 +76,7 @@
 					}
 				</string>
 				<key>selection</key>
-				<string>#3E87D6EE</string>
+				<string>#3E87D6AA</string>
 				<key>selectionBorder</key>
 				<string>#343F4C</string>
 				<key>shadow</key>
@@ -3381,6 +3381,39 @@
 				<string>#747474FF</string>
 				<key>foreground</key>
 				<string>#F4F4F4FF</string>
+			</dict>
+		</dict>
+		<dict>
+			<key>scope</key>
+			<string>col_3E87D6AA</string>
+			<key>settings</key>
+			<dict>
+				<key>background</key>
+				<string>#3E87D6AA</string>
+				<key>foreground</key>
+				<string>#DEDEDEFF</string>
+			</dict>
+		</dict>
+		<dict>
+			<key>scope</key>
+			<string>col_DEDEDEFF</string>
+			<key>settings</key>
+			<dict>
+				<key>background</key>
+				<string>#DEDEDEFF</string>
+				<key>foreground</key>
+				<string>#5E5E5EFF</string>
+			</dict>
+		</dict>
+		<dict>
+			<key>scope</key>
+			<string>col_5E5E5EFF</string>
+			<key>settings</key>
+			<dict>
+				<key>background</key>
+				<string>#5E5E5EFF</string>
+				<key>foreground</key>
+				<string>#DEDEDEFF</string>
 			</dict>
 		</dict>
 	</array>
