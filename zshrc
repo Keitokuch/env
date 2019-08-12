@@ -83,7 +83,7 @@ autoload -U compinit && compinit -u
 
 # export MANPATH="/usr/local/man:$MANPATH"
 export TOKYO="172.105.193.103"
-
+export LA="149.248.12.171"
 # You may need to manually set your language environment
 # export LANG=en_US.UTF-8
 
@@ -107,6 +107,10 @@ export TOKYO="172.105.193.103"
 #
 # Example aliases
 alias py="python3"
+if [ -x "$(command -v mvim)" ]; then
+    alias vi="mvim -v"
+fi 
+
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 function spectrum_ls() {

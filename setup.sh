@@ -5,14 +5,14 @@ OMZ=~/.oh-my-zsh
 TMP=~/.tmux/plugins
 
 # get zsh
-if [ -z "$(which zsh)" ]; then
+if ! [ -x "$(command -v zsh)" ]; then
 	sudo apt install zsh
 	chsh -s $(which zsh) 
 fi 
 
 
 # get tmux
-if [ -z "$(which tmux)" ]; then
+if ! [ -x "$(command -v tmux)" ]; then
 	sudo apt install tmux 
 fi 
 
