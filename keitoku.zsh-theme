@@ -5,10 +5,16 @@
 #PROMPT='%{$FG[215]%}❄ %* %{$FG[087]%}%~: $(git_prompt_info)%{$FG[047]%}%{$reset_color%}♨  '
 #PROMPT='%{$FG[215]%}❄ %n@%m %{$FG[087]%}%~: $(git_prompt_info)%{$FG[047]%}%{$reset_color%}♨  '
 if [[ -z $TMUX ]]; then
-	PROMPT='%{$FG[215]%}❄ %n %{$FG[087]%}%~: $(git_prompt_info)%{$FG[047]%}%{$reset_color%}♨  '
+	PROMPT='%{$FG[214]%}❄ %n %{$FG[045]%}%~: $(git_prompt_info)%{$FG[047]%}%{$reset_color%}♨  '
 else 
-	PROMPT='%{$FG[215]%}❄ %n %{$FG[087]%}%c: $(git_prompt_info)%{$FG[047]%}%{$reset_color%}♨  '
+	PROMPT='%{$FG[214]%}❄ %n %{$FG[045]%}%c: $(git_prompt_info)%{$FG[047]%}%{$reset_color%}♨  '
 fi
+
+# if [[ -z $TMUX ]]; then
+# 	PROMPT='%{$FG[215]%}❄ %n %{$FG[087]%}%~: $(git_prompt_info)%{$FG[047]%}%{$reset_color%}♨  '
+# else 
+# 	PROMPT='%{$FG[215]%}❄ %n %{$FG[087]%}%c: $(git_prompt_info)%{$FG[047]%}%{$reset_color%}♨  '
+# fi
 
 # ZSH_THEME_GIT_PROMPT_PREFIX=""
 # ZSH_THEME_GIT_PROMPT_SUFFIX="%{$reset_color%}"

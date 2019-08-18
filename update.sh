@@ -37,32 +37,38 @@ zshTheme() {
 	zsh ~/.zshrc
 }
 
-
-while getopts ":azvtZ" opt; do
-	case $opt in
-		z)
-			zshrc
-			echo "updated .zshrc"
-			;;
-		v)
-			vimrc
-			echo "updated .vimrc"
-			;;
-		t)
-			tm
-			echo "updated .tmux.conf"
-			;;
-		Z)
-			zshTheme
-			echo "updated zsh-theme"
-			;;
-		a)
-			echo "updating all"
-			vimrc
-			tm 
-			zshTheme
-			zshrc
-			;;
-	esac 
-done
-
+if [ $# -eq 0 ]; then 
+    echo "updating all"
+    vimrc
+    tm 
+    zshTheme
+    zshrc
+else
+    while getopts ":azvtZ" opt; do
+        case $opt in
+            z)
+                zshrc
+                echo "updated .zshrc"
+                ;;
+            v)
+                vimrc
+                echo "updated .vimrc"
+                ;;
+            t)
+                tm
+                echo "updated .tmux.conf"
+                ;;
+            Z)
+                zshTheme
+                echo "updated zsh-theme"
+                ;;
+            a)
+                echo "updating all"
+                vimrc
+                tm 
+                zshTheme
+                zshrc
+                ;;
+        esac 
+    done
+fi

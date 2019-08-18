@@ -141,15 +141,20 @@ Plug 'lfv89/vim-interestingwords'
 Plug 'connorholyday/vim-snazzy'
 ""Plug 'ycm-core/YouCompleteMe'
 Plug 'neoclide/coc.nvim', {'branch': 'release'} 
+Plug 'vim-airline/vim-airline'
+Plug 'sonph/onehalf', {'rtp':'vim/'}
 
 call plug#end() 
 
 
 " --------------- Plugin Configs ----------------
+"" --------------Nerd-Tree ------------
 map ss :NERDTreeToggle<CR>
 
 "" -------------- vim-gitgutter -----------------
 let g:gitgutter_map_keys = 0 
 
-
+"" -------------- Color Scheme -------------
+colorscheme onehalfdark
+let g:airline_theme='onehalfdark'
 
