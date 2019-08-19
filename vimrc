@@ -110,8 +110,8 @@ let g:winManagerWindowLayout='FileExplorer|TagList'
 ""autocmd InsertEnter * set cursorcolumn
 ""autocmd InsertLeave * set nocursorcolumn
 
-""autocmd VimLeave * silent !echo -ne "\e[3 q"
-""autocmd VimEnter * silent !echo -ne "\e[2 q"
+autocmd VimLeave * silent !echo -ne "\e[3 q"
+autocmd VimEnter * silent !echo -ne "\e[2 q"
 
 if exists('$TMUX')
 	let &t_SI = "\ePtmux;\e\e[3 q\e\\"
@@ -148,8 +148,19 @@ call plug#end()
 
 
 " --------------- Plugin Configs ----------------
+
 "" --------------Nerd-Tree ------------
 map ss :NERDTreeToggle<CR>
+let g:NERDTreeWinSize=24
+autocmd StdinReadPre * let s:std_in=1
+" Open NERDTree if a directory if opened
+autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | exe 'cd '.argv()[0] | endif
+" Open NERDTree if no argument 
+autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+" Default cursor to opened file window 
+autocmd VimEnter * if argc() | wincmd p | endif 
+" Quit if NERDTree is the only window left 
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
 "" -------------- vim-gitgutter -----------------
 let g:gitgutter_map_keys = 0 
