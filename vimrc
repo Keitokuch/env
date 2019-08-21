@@ -8,8 +8,6 @@ set showcmd
 set wildmenu
 filetype on
 
-filetype indent on 
-filetype plugin on 
 filetype plugin indent on 
 set encoding=utf-8
 let &t_ut=''
@@ -43,6 +41,7 @@ set laststatus=2    "always show status
 if has("autocmd")
   au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
 endif
+set clipboard=unnamed 
 
 " ------------------- Appearance -------------------
 colorscheme ron
@@ -54,7 +53,6 @@ let mapleader=" "
 map s <nop>
 map t <nop>
 inoremap jj <ESC>
-nnoremap <C-k> <C-w>
 nnoremap <C-i> 10kzz
 nnoremap <C-d> 10jzz
 
@@ -143,6 +141,9 @@ Plug 'connorholyday/vim-snazzy'
 Plug 'neoclide/coc.nvim', {'branch': 'release'} 
 Plug 'vim-airline/vim-airline'
 Plug 'sonph/onehalf', {'rtp':'vim/'}
+Plug 'numirias/semshi', {'do': ':UpdateRemotePlugins'}
+Plug 'vim-syntastic/syntastic'
+Plug 'nvie/vim-flake8'
 
 call plug#end() 
 
@@ -154,18 +155,38 @@ map ss :NERDTreeToggle<CR>
 let g:NERDTreeWinSize=24
 autocmd StdinReadPre * let s:std_in=1
 " Open NERDTree if a directory if opened
-autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | exe 'cd '.argv()[0] | endif
+let g:DIROPEN=0 
+autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | let g:DIROPEN=1 | exe 'NERDTreeToggle' argv()[0] | wincmd p | ene | exe 'cd '.argv()[0] | endif
 " Open NERDTree if no argument 
-autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | let g:DIROPEN=1 | exe 'NERDTreeToggle' | endif
 " Default cursor to opened file window 
 autocmd VimEnter * if argc() | wincmd p | endif 
 " Quit if NERDTree is the only window left 
-autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree() && g:DIROPEN != 1) | q | endif
 
 "" -------------- vim-gitgutter -----------------
+" unmap some leader combo 
 let g:gitgutter_map_keys = 0 
+
+"" ---------------- coc.nvim -------------------
+" use <tab> for trigger completion and navigate to the next complete item
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~ '\s'
+endfunction
+
+inoremap <silent><expr> <Tab>
+      \ pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "\<Tab>" :
+      \ coc#refresh()
+
+" use <cr> to confirm completion
+inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 
 "" -------------- Color Scheme -------------
 colorscheme onehalfdark
 let g:airline_theme='onehalfdark'
+colorscheme vim-keitoku
 
+"" ------------- Python ---------------
+let python_highlight_all=1 
