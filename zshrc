@@ -111,8 +111,9 @@ if [ -x "$(command -v mvim)" ]; then
     alias vi="mvim -v"
 fi 
 
-# alias zshconfig="mate ~/.zshrc"
-# alias ohmyzsh="mate ~/.oh-my-zsh"
+alias ra="ranger" 
+
+# xterm color demo
 function spectrum_ls() {
   for code in {000..255}; do
     print -P -- "$code: %{$FG[$code]%}$ZSH_SPECTRUM_TEXT%{$reset_color%}"
