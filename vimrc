@@ -50,30 +50,32 @@ colorscheme ron
 
 " ------------------- Key Mappings ------------------
 let mapleader=" "
-map s <nop>
-map t <nop>
 inoremap jj <ESC>
 nnoremap <C-i> 10kzz
 nnoremap <C-d> 10jzz
 
 "" Split
-map sr :set splitright<CR>:vsplit<CR>
-map sd :set splitbelow<CR>:split<CR>
+map s <nop>
+map sl :set splitright<CR>:vsplit<CR>
+map sh :set nosplitright<CR>:vsplit<CR>
+map sj :set splitbelow<CR>:split<CR>
+map sk :set nosplitbelow<CR>:split<CR>
 map <leader>l <C-w>l
-noremap <leader>h <C-w>h
-map <leader>p <C-w>k
-map <leader>n <C-w>j
+map <leader>h <C-w>h
+map <leader>k <C-w>k
+map <leader>j <C-w>j
 map <up> :resize +5<CR>
 map <down> :resize -5<CR>
 map <left> :vertical resize-5<CR>
 map <right> :vertical resize+5<CR>
 
 "" Tab
+map t <nop>
 map tt :tabe<CR>
-map tl :+tabnext<CR>
-map th :-tabnext<CR>
+map <leader>] :+tabnext<CR>
+map <leader>[ :-tabnext<CR> 
 
-map te :q<CR>
+"" Buffer 
 map <leader>s :w<CR>
 map <leader>q :q<CR>
 map <leader>sq :wq<CR>
@@ -94,7 +96,6 @@ inoremap <expr> ) strpart(getline('.'), col('.')-1, 1) == ")" ? "\<Right>" : ")"
 
 let Tlist_Show_One_File=1
 let Tlist_Exit_OnlyWindow=1
-let g:winManagerWindowLayout='FileExplorer|TagList'
 
 " Cursor Configuration !!
 " 5 for blinking I-beam
@@ -119,15 +120,13 @@ else
 	let &t_EI = "\e[2 q"
 endif
 
+"let &t_SR = "\<Esc>[4 q"
+"let &t_SR = "\<Esc>[2 q"
 
-
-""let &t_SR = "\<Esc>[4 q"
-""let &t_SR = "\<Esc>[2 q"
-
-""let &t_SI = "\<esc>[5 q"  " blinking I-beam in insert mode
-""let &t_SI = "\<esc>[3 q"  " steady underline in insert mode
-""let &t_SR = "\<esc>[0 q"  " blinking block in replace mode
-""let &t_EI = "\<esc>[2 q"  " default cursor (usually blinking block) otherwise]"]"]"
+"let &t_SI = "\<esc>[5 q"  " blinking I-beam in insert mode
+"let &t_SI = "\<esc>[3 q"  " steady underline in insert mode
+"let &t_SR = "\<esc>[0 q"  " blinking block in replace mode
+"let &t_EI = "\<esc>[2 q"  " default cursor (usually blinking block) otherwise]"]"]"
 
 
 "" ----------------- Vim-Plug ---------------
@@ -137,13 +136,11 @@ Plug 'scrooloose/nerdtree', {'on': 'NERDTreeToggle' }
 Plug 'airblade/vim-gitgutter'
 Plug 'lfv89/vim-interestingwords'
 Plug 'connorholyday/vim-snazzy'
-""Plug 'ycm-core/YouCompleteMe'
 Plug 'neoclide/coc.nvim', {'branch': 'release'} 
 Plug 'vim-airline/vim-airline'
 Plug 'sonph/onehalf', {'rtp':'vim/'}
-Plug 'numirias/semshi', {'do': ':UpdateRemotePlugins'}
 Plug 'vim-syntastic/syntastic'
-Plug 'nvie/vim-flake8'
+Plug 'python-mode/python-mode', { 'branch': 'develop' }
 
 call plug#end() 
 
@@ -168,6 +165,12 @@ autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isT
 " unmap some leader combo 
 let g:gitgutter_map_keys = 0 
 
+"" -------------- interesting words -----------------
+map <silent> <leader>i <Plug>InterestingWords<nop>
+map <silent> <leader>I <Plug>InterestingWordsClear
+map n <Plug>InterestingWordsForeward
+map N <Plug>InterestingWordsBackward
+
 "" ---------------- coc.nvim -------------------
 " use <tab> for trigger completion and navigate to the next complete item
 function! s:check_back_space() abort
@@ -189,4 +192,22 @@ let g:airline_theme='onehalfdark'
 colorscheme vim-keitoku
 
 "" ------------- Python ---------------
-let python_highlight_all=1 
+let g:pymode_python = 'python3'
+hi def link pythonParam             Identifier 
+hi def link pythonClassParameters   Identifier
+hi def link pythonSelf              Conventional
+hi def link pythonOperator     Keyword
+
+function! <SID>SynStack()
+
+    if !exists("*synstack")
+
+        return
+
+    endif
+
+    echo map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")')
+
+endfunc
+
+nnoremap <C-g> :call <SID>SynStack()<CR>
