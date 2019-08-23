@@ -18,8 +18,8 @@ let s:purple      = { "gui": "#cf51a1", "cterm": "176" }
 let s:cyan        = { "gui": "#37dcee", "cterm": "81"  }
 let s:white       = { "gui": "#e0e3e3", "cterm": "188" }
 let s:orange      = { "gui": "#f99157", "cterm": "208" }
-let s:class      = { "gui": "#5ccfe6", "cterm": "14" }
 let s:opt         = { "gui": "#ffffff", "cterm": "74"} 
+let s:class       = s:red 
 
 let s:fg          = s:white
 let s:bg          = s:black
@@ -115,7 +115,8 @@ call s:hi("Title", s:green, {}, "")
 call s:hi("WildMenu", s:fg, {}, "")
 
 " Syntax colors {
-call s:hi("Comment", s:comment_fg, {}, "")
+call s:hi("Comment", s:comment_fg, {}, "italic")
+
 call s:hi("Constant", s:green, {}, "")
 call s:hi("String", s:green, {}, "")
 call s:hi("Character", s:green, {}, "")
@@ -125,19 +126,19 @@ call s:hi("Float", s:cyan, {}, "")
 
 call s:hi("Identifier", s:yellow, {}, "")
 call s:hi("Function", s:blue, {}, "")
-call s:hi("Statement", s:purple, {}, "")
 
+call s:hi("Statement", s:purple, {}, "")
 call s:hi("Conditional", s:orange, {}, "")
 call s:hi("Repeat", s:orange, {}, "")
 call s:hi("Label", s:purple, {}, "")
 call s:hi("Operator", s:opt, {}, "")
-call s:hi("Keyword", s:red, {}, "")
+call s:hi("Keyword", s:orange, {}, "")
 call s:hi("Exception", s:red, {}, "")
 
-call s:hi("PreProc", s:yellow, {}, "")
-call s:hi("Include", s:orange, {}, "")
-call s:hi("Define", s:orange, {}, "")
-call s:hi("Macro", s:orange, {}, "")
+call s:hi("PreProc", s:red, {}, "")
+call s:hi("Include", s:red, {}, "")
+call s:hi("Define", s:red, {}, "")
+call s:hi("Macro", s:red, {}, "")
 call s:hi("PreCondit", s:yellow, {}, "")
 
 call s:hi("Type", s:class, {}, "")
@@ -145,15 +146,20 @@ call s:hi("StorageClass", s:class, {}, "")
 call s:hi("Structure", s:class, {}, "")
 call s:hi("Typedef", s:yellow, {}, "")
 
+call s:hi("Conventional", s:cyan, {}, "italic") 
+
 call s:hi("Special", s:red, {}, "")
 call s:hi("SpecialChar", s:fg, {}, "")
 call s:hi("Tag", s:fg, {}, "")
 call s:hi("Delimiter", s:fg, {}, "")
 call s:hi("SpecialComment", s:fg, {}, "")
 call s:hi("Debug", s:fg, {}, "")
+
 call s:hi("Underlined", s:fg, {}, "")
 call s:hi("Ignore", s:fg, {}, "")
 call s:hi("Error", s:red, s:gutter_bg, "")
 call s:hi("Todo", s:purple, {}, "")
+
+
 " }
 
