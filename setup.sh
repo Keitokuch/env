@@ -1,6 +1,5 @@
 #! /bin/sh
 
-ENV=~/env
 OMZ=~/.oh-my-zsh
 TMP=~/.tmux/plugins
 
@@ -23,19 +22,21 @@ fi
 
 # get tpm
 if [ ! -d "$TMP/tpm" ]; then
-	git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+	git clone https://github.com/tmux-plugins/tpm.git ~/.tmux/plugins/tpm
 fi 
 
 # deploy configs
-cp $ENV/keitoku.zsh-theme $OMZ/themes/keitoku.zsh-theme
+cp ./keitoku.zsh-theme $OMZ/themes/keitoku.zsh-theme
 
-cp $ENV/zshrc ~/.zshrc
+cp ./zshrc ~/.zshrc
 zsh ~/.zshrc
 
-cp $ENV/vimrc ~/.vimrc
+cp ./vimrc ~/.vimrc
+mkdir -p ~/.vim/colors/ 
+cp ./vim-keitoku.vim ~/.vim/colors/ 
 
-cp $ENV/tmux.conf ~/.tmux.conf 
+tic ./utils/xterm-256color-italic.terminfo 
+cp ./tmux.conf ~/.tmux.conf 
 
 
-# sudo chmod +x $ENV/update.sh 
 

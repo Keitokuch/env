@@ -1,45 +1,58 @@
 #! /bin/sh
-
-ENV=~/env
 OMZ=~/.oh-my-zsh
 
 zshrc() {
-	if [ -f $ENV/zshrc.local ]; then
-		cp $ENV/zshrc.local ~/.zshrc
+	if [ -f ./zshrc.local ]; then
+		cp ./zshrc.local ~/.zshrc
 	else
-		cp $ENV/zshrc ~/.zshrc
+		cp ./zshrc ~/.zshrc
 	fi
 	zsh ~/.zshrc
+    echo ".zshrc updated"
+
 }
 
 vimrc() {
-	if [ -f $ENV/vimrc.local ]; then
-		cp $ENV/vimrc.local ~/.vimrc
+	if [ -f ./vimrc.local ]; then
+		cp ./vimrc.local ~/.vimrc
 	else
-		cp $ENV/vimrc ~/.vimrc
+		cp ./vimrc ~/.vimrc
 	fi 
+    echo ".vimrc updated"
+}
+
+vimTheme() {
+    if [ -f ./vim-keitoku.vim.local ]; then
+        cp ./vim-keitoku.vim.local ~/.vim/colors/vim-keitoku.vim 
+    else 
+        cp ./vim-keitoku.vim ~/.vim/colors/ 
+    fi 
+    echo "vim colorscheme updated"
 }
 
 tm() {
-	if [ -f $ENV/tmux.conf.local ]; then
-		cp $ENV/tmux.conf.local ~/.tmux.conf
+	if [ -f ./tmux.conf.local ]; then
+		cp ./tmux.conf.local ~/.tmux.conf
 	else
-		cp $ENV/tmux.conf ~/.tmux.conf
+		cp ./tmux.conf ~/.tmux.conf
 	fi
 
 	if [ -n "$TMUX" ]; then
 		tmux source-file ~/.tmux.conf 
 	fi
+    echo ".tmux.conf updated"
 }
 
 zshTheme() {
-	cp $ENV/keitoku.zsh-theme $OMZ/themes/keitoku.zsh-theme
+	cp ./keitoku.zsh-theme $OMZ/themes/keitoku.zsh-theme
 	zsh ~/.zshrc
+    echo "zsh-theme updated"
 }
 
 if [ $# -eq 0 ]; then 
-    echo "updating all"
+    echo "updating all..."
     vimrc
+    vimTheme
     tm 
     zshTheme
     zshrc
@@ -48,26 +61,18 @@ else
         case $opt in
             z)
                 zshrc
-                echo "updated .zshrc"
                 ;;
             v)
                 vimrc
-                echo "updated .vimrc"
                 ;;
+            V)
+                vimTheme 
+                ;; 
             t)
                 tm
-                echo "updated .tmux.conf"
                 ;;
             Z)
                 zshTheme
-                echo "updated zsh-theme"
-                ;;
-            a)
-                echo "updating all"
-                vimrc
-                tm 
-                zshTheme
-                zshrc
                 ;;
         esac 
     done
