@@ -26,15 +26,24 @@ if [ ! -d "$TMP/tpm" ]; then
 fi 
 
 # deploy configs
+echo "setting zsh configs"
 cp ./keitoku.zsh-theme $OMZ/themes/keitoku.zsh-theme
 
 cp ./zshrc ~/.zshrc
 zsh ~/.zshrc
 
+echo "setting vim configs"
 cp ./vimrc ~/.vimrc
+# Vim plug
+curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
+    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+# vim colorscheme
 mkdir -p ~/.vim/colors/ 
 cp ./vim-keitoku.vim ~/.vim/colors/ 
+# install nodejs for coc.nvim
+curl -sL install-node.now.sh/lts | bash
 
+echo "setting tmux configs"
 tic ./utils/xterm-256color-italic.terminfo 
 cp ./tmux.conf ~/.tmux.conf 
 
