@@ -64,7 +64,6 @@ map <left> :vertical resize-5<CR>
 map <right> :vertical resize+5<CR>
 
 "" Tab
-map t <nop>
 map tt :tabe<CR>
 map <leader>] :+tabnext<CR>
 map <leader>[ :-tabnext<CR> 
@@ -75,10 +74,8 @@ map <leader>q :q<CR>
 map <leader>sq :wq<CR>
 
 "" Auto brackets
-inoremap " ""<left>
-inoremap ' ''<left>
 inoremap ( ()<left>
-inoremap [ []<left>
+inoremap [ []<left>'
 inoremap { {}<left>
 inoremap {<CR> {<CR>}<ESC>O
 inoremap {;<CR> {<CR>};<ESC>O
@@ -87,6 +84,21 @@ inoremap <expr> " strpart(getline('.'), col('.')-1, 1) == "\"" ? "\<Right>" : "\
 inoremap <expr> ] strpart(getline('.'), col('.')-1, 1) == "]" ? "\<Right>" : "]"
 inoremap <expr> } strpart(getline('.'), col('.')-1, 1) == "}" ? "\<Right>" : "}"
 inoremap <expr> ) strpart(getline('.'), col('.')-1, 1) == ")" ? "\<Right>" : ")"
+
+function! s:insert_single_quote()
+    let col = col('.') - 1 
+    let next = getline('.')[col]
+    let prev = getline('.')[col - 1]
+    if (prev == "'" && next == "'")
+        return "\<Right>"
+    elseif (next == "'" || prev == "'")
+        return "'"
+    else 
+        return "''\<Left>"
+    endif 
+endfunction
+
+inoremap <expr> ' <SID>insert_single_quote() 
 
 let Tlist_Show_One_File=1
 let Tlist_Exit_OnlyWindow=1
@@ -199,6 +211,11 @@ inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm() : "\<C-g>u\<CR
 nnoremap <silent> K :call <SID>show_documentation()<CR>
 " Remap for rename current word
 nmap <leader>r <Plug>(coc-rename)
+" Remap keys for gotos
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
 
 "" -------------- Color Scheme -------------
 let g:airline_theme='onehalfdark'
@@ -206,10 +223,15 @@ colorscheme vim-keitoku
 
 "" ------------- Python ---------------
 let g:pymode_python = 'python3'
+let g:pymode_syntax_space_errors = 0
 hi def link pythonParam             Identifier 
 hi def link pythonClassParameters   Identifier
 hi def link pythonSelf              Conventional
-hi def link pythonOperator     Keyword
+hi def link pythonOperator          Keyword
+hi def link pythonFunction          FunctionDeclaration 
+hi def link pythonBuiltinFunc       BuiltinFunc 
+au Filetype python syntax match pythonFunctionCall /\v[[:alpha:]_]+\ze(\s?\()/
+hi def link pythonFunctionCall FunctionCall
 
 function! <SID>SynStack()
 

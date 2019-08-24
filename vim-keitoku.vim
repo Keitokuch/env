@@ -19,6 +19,8 @@ let s:cyan        = { "gui": "#37dcee", "cterm": "81"  }
 let s:white       = { "gui": "#e0e3e3", "cterm": "188" }
 let s:orange      = { "gui": "#f99157", "cterm": "208" }
 let s:opt         = { "gui": "#ffffff", "cterm": "74"} 
+let s:darkblue    = { "gui": "#6699cc", "cterm": "39"  }
+let s:lightblue   = { "gui": "#6699cc", "cterm": "12"  }
 let s:class       = s:red 
 
 let s:fg          = s:white
@@ -146,7 +148,10 @@ call s:hi("StorageClass", s:class, {}, "")
 call s:hi("Structure", s:class, {}, "")
 call s:hi("Typedef", s:yellow, {}, "")
 
-call s:hi("Conventional", s:cyan, {}, "italic") 
+call s:hi("Conventional", s:opt, {}, "italic") 
+call s:hi("FunctionCall", s:lightblue, {}, "")
+call s:hi("FunctionDeclaration", s:cyan, {}, "") 
+call s:hi("BuiltinFunc", s:cyan, {}, "") 
 
 call s:hi("Special", s:red, {}, "")
 call s:hi("SpecialChar", s:fg, {}, "")
