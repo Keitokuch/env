@@ -7,7 +7,6 @@ set wrap
 set showcmd
 set wildmenu
 filetype on
-
 filetype plugin indent on 
 set encoding=utf-8
 let &t_ut=''
@@ -28,19 +27,11 @@ set vb t_vb=
 set ruler
 set nohls
 set runtimepath+=~/.vim
-if has("vms")
-	set nobackup
-else
-	set backup
-endif
 set history=1000 
 set laststatus=2    "always show status
 set clipboard=unnamed 
+set termguicolors
 
-" ------------------- Appearance -------------------
-colorscheme ron
-
-""color snazzy
 
 " ------------------- Key Mappings ------------------
 let mapleader=" "
@@ -64,18 +55,17 @@ map <left> :vertical resize-5<CR>
 map <right> :vertical resize+5<CR>
 
 "" Tab
-map tt :tabe<CR>
+map st :tabe<CR>
 map <leader>] :+tabnext<CR>
 map <leader>[ :-tabnext<CR> 
 
 "" Buffer 
 map <leader>s :w<CR>
 map <leader>q :q<CR>
-map <leader>sq :wq<CR>
 
 "" Auto brackets
 inoremap ( ()<left>
-inoremap [ []<left>'
+inoremap [ []<left>
 inoremap { {}<left>
 inoremap {<CR> {<CR>}<ESC>O
 inoremap {;<CR> {<CR>};<ESC>O
@@ -85,23 +75,6 @@ inoremap <expr> ] strpart(getline('.'), col('.')-1, 1) == "]" ? "\<Right>" : "]"
 inoremap <expr> } strpart(getline('.'), col('.')-1, 1) == "}" ? "\<Right>" : "}"
 inoremap <expr> ) strpart(getline('.'), col('.')-1, 1) == ")" ? "\<Right>" : ")"
 
-function! s:insert_single_quote()
-    let col = col('.') - 1 
-    let next = getline('.')[col]
-    let prev = getline('.')[col - 1]
-    if (prev == "'" && next == "'")
-        return "\<Right>"
-    elseif (next == "'" || prev == "'")
-        return "'"
-    else 
-        return "''\<Left>"
-    endif 
-endfunction
-
-inoremap <expr> ' <SID>insert_single_quote() 
-
-let Tlist_Show_One_File=1
-let Tlist_Exit_OnlyWindow=1
 
 "" ====================== Additional Features ========================
 " Start from last position
@@ -123,8 +96,6 @@ endif
 
 autocmd VimLeave * silent !echo -ne "\e[3 q"
 autocmd VimEnter * silent !echo -ne "\e[2 q"
-"let &t_SR = "\<Esc>[4 q"
-"let &t_SR = "\<Esc>[2 q"
 
 "let &t_SI = "\<esc>[5 q"  " blinking I-beam in insert mode
 "let &t_SI = "\<esc>[3 q"  " steady underline in insert mode
@@ -150,8 +121,9 @@ Plug 'connorholyday/vim-snazzy'
 Plug 'neoclide/coc.nvim', {'branch': 'release'} 
 Plug 'vim-airline/vim-airline'
 Plug 'sonph/onehalf', {'rtp':'vim/'}
-Plug 'vim-syntastic/syntastic'
+Plug 'dense-analysis/ale'
 Plug 'python-mode/python-mode', { 'branch': 'develop' }
+Plug 'Yggdroot/LeaderF', { 'do': './install.sh' }
 
 call plug#end() 
 
@@ -161,6 +133,7 @@ call plug#end()
 "" -------------------- Nerd-Tree ----------------------
 map ss :NERDTreeToggle<CR>
 let g:NERDTreeWinSize=24
+let g:NERDTreeMininalUI=1 
 autocmd StdinReadPre * let s:std_in=1
 " Open NERDTree if a directory if opened
 let g:DIROPEN=0 
@@ -210,7 +183,7 @@ inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm() : "\<C-g>u\<CR
 " Use K to show documentation in preview window
 nnoremap <silent> K :call <SID>show_documentation()<CR>
 " Remap for rename current word
-nmap <leader>r <Plug>(coc-rename)
+nmap <leader>rn <Plug>(coc-rename)
 " Remap keys for gotos
 nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gy <Plug>(coc-type-definition)
@@ -232,6 +205,18 @@ hi def link pythonFunction          FunctionDeclaration
 hi def link pythonBuiltinFunc       BuiltinFunc 
 au Filetype python syntax match pythonFunctionCall /\v[[:alpha:]_]+\ze(\s?\()/
 hi def link pythonFunctionCall FunctionCall
+
+" ----------------- TagList -----------------
+let Tlist_Show_One_File=1
+let Tlist_Exit_OnlyWindow=1
+let Tlist_Use_Right_Window=0 
+map <silent> tl :TlistToggle<cr> 
+
+" ---------------- Leaderf ----------------
+let g:Lf_ShowRelativePath = 0
+let g:Lf_HideHelp = 1 
+map <leader>p :LeaderfFunction!<cr>
+map <leader>o :LeaderfFile<cr>
 
 function! <SID>SynStack()
 
