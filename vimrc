@@ -30,7 +30,7 @@ set runtimepath+=~/.vim
 set history=1000 
 set laststatus=2    "always show status
 set clipboard=unnamed 
-set termguicolors
+"set termguicolors
 
 
 " ------------------- Key Mappings ------------------
@@ -124,6 +124,7 @@ Plug 'sonph/onehalf', {'rtp':'vim/'}
 Plug 'dense-analysis/ale'
 Plug 'python-mode/python-mode', { 'branch': 'develop' }
 Plug 'Yggdroot/LeaderF', { 'do': './install.sh' }
+Plug 'majutsushi/tagbar' 
 
 call plug#end() 
 
@@ -134,6 +135,7 @@ call plug#end()
 map ss :NERDTreeToggle<CR>
 let g:NERDTreeWinSize=24
 let g:NERDTreeMininalUI=1 
+let NERDTreeMapOpenVSplit='so'
 autocmd StdinReadPre * let s:std_in=1
 " Open NERDTree if a directory if opened
 let g:DIROPEN=0 
@@ -170,8 +172,7 @@ function! s:show_documentation()
 endfunction
 
 " use <tab> and <s-tab> for trigger completion and navigate to complete items
-inoremap <silent><expr> <Tab>
-      \ pumvisible() ? "\<C-n>" :
+inoremap <silent><expr> <Tab> \ pumvisible() ? "\<C-n>" :
       \ <SID>check_back_space() ? "\<Tab>" :
       \ coc#refresh()
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
@@ -194,7 +195,21 @@ nmap <silent> gr <Plug>(coc-references)
 let g:airline_theme='onehalfdark'
 colorscheme vim-keitoku
 
-"" ------------- Python ---------------
+" ----------------- Tagbar -----------------
+nmap <silent> <leader>t :TagbarToggle<cr> 
+let g:tagbar_width = 25
+let g:tagbar_autofocus = 1
+let g:tagbar_map_showproto = 'v'
+
+" ---------------- Leaderf ----------------
+let g:Lf_ShowRelativePath = 0
+let g:Lf_HideHelp = 1 
+map <leader>p :LeaderfFunction!<cr>
+map <leader>o :LeaderfFile<cr>
+
+" ============= Languages ==============
+
+" ------------- Python ---------------
 let g:pymode_python = 'python3'
 let g:pymode_syntax_space_errors = 0
 hi def link pythonParam             Identifier 
@@ -206,17 +221,11 @@ hi def link pythonBuiltinFunc       BuiltinFunc
 au Filetype python syntax match pythonFunctionCall /\v[[:alpha:]_]+\ze(\s?\()/
 hi def link pythonFunctionCall FunctionCall
 
-" ----------------- TagList -----------------
-let Tlist_Show_One_File=1
-let Tlist_Exit_OnlyWindow=1
-let Tlist_Use_Right_Window=0 
-map <silent> tl :TlistToggle<cr> 
-
-" ---------------- Leaderf ----------------
-let g:Lf_ShowRelativePath = 0
-let g:Lf_HideHelp = 1 
-map <leader>p :LeaderfFunction!<cr>
-map <leader>o :LeaderfFile<cr>
+" ------------- Lua ---------------
+hi def link luaFunc                 FunctionCall 
+hi def link luaFunction             Statement 
+hi def link luaFunctionBlock        FunctionDeclaration 
+hi def link luaParen                Identifier 
 
 function! <SID>SynStack()
 

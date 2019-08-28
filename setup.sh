@@ -41,8 +41,8 @@ curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
 mkdir -p ~/.vim/colors/ 
 cp ./vim-keitoku.vim ~/.vim/colors/ 
 # install nodejs for coc.nvim
-curl -sL install-node.now.sh/lts | bash
-
+#curl -sL install-node.now.sh/lts | bash
+sudo apt-get install -y nodejs
 echo "setting tmux configs"
 tic ./utils/xterm-256color-italic.terminfo 
 cp ./tmux.conf ~/.tmux.conf 
