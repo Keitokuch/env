@@ -107,8 +107,8 @@ export LA="149.248.12.171"
 #
 # Example aliases
 alias py="python3"
-if [ -x "$(command -v mvim)" ]; then
-    alias vi="mvim -v"
+if [ -x "$(command -v nvim)" ]; then
+    alias vi="nvim"
 fi 
 
 alias ra="ranger" 

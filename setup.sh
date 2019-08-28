@@ -37,6 +37,8 @@ cp ./vimrc ~/.vimrc
 # Vim plug
 curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
+    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 # vim colorscheme
 mkdir -p ~/.vim/colors/ 
 cp ./vim-keitoku.vim ~/.vim/colors/ 
@@ -47,5 +49,6 @@ echo "setting tmux configs"
 tic ./utils/xterm-256color-italic.terminfo 
 cp ./tmux.conf ~/.tmux.conf 
 
+sudo apt install neovim 
 
 

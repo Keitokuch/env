@@ -18,7 +18,8 @@ vimrc() {
 	else
 		cp ./vimrc ~/.vimrc
 	fi 
-    echo ".vimrc updated"
+    cp ./init.vim ~/.config/nvim/init.vim 
+    echo ".vimrc, init.vim updated"
 }
 
 vimTheme() {
