@@ -1,6 +1,7 @@
 " neovim specific 
-let g:python2_host_prog = system('which python')
-let g:python3_host_prog = system('which python3')
+let g:python2_host_prog = system('which python')[:-2]
+let g:python3_host_prog = system('which python3')[:-2]
+"let g:python3_host_prog = '/usr/local/bin/python3'
  
 " ----------------- Options ----------------
 syntax on 
@@ -42,6 +43,8 @@ colorscheme vim-keitoku
 " ============================ Key Mappings =============================
 let mapleader=" "
 inoremap jj <ESC>
+map q <ESC>
+nnoremap Q q
 nnoremap <C-i> 10k10<C-y>
 nnoremap <C-d> 10j10<C-e>
 
@@ -61,13 +64,14 @@ map <left> :vertical resize-5<CR>
 map <right> :vertical resize+5<CR>
 
 "" Tab
-map st :tabe<CR>
+map <leader>t :tabe<CR>
 map <leader>] :+tabnext<CR>
 map <leader>[ :-tabnext<CR> 
 
 "" Buffer 
 map <leader>s :w<CR>
-map <leader>q :q<CR>
+map <leader>q :qall<CR>
+map <leader>w :q<CR>
 
 "" Jumping
 " tag jump
@@ -75,7 +79,7 @@ nnoremap <C-p> <C-]>
 " next position
 nnoremap <C-u> <C-i> 
 " jump last tag 
-nnoremap <C-n> <C-t>
+nnoremap <C-y> <C-t>
 
 "" Insert mode
 inoremap <C-e> <ESC>$a
@@ -109,13 +113,13 @@ Plug 'connorholyday/vim-snazzy'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'vim-airline/vim-airline'
 Plug 'sonph/onehalf', {'rtp':'vim/'}
-Plug 'dense-analysis/ale'
 Plug 'python-mode/python-mode', { 'branch': 'develop' }
 Plug 'Yggdroot/LeaderF', { 'do': './install.sh' }
 Plug 'majutsushi/tagbar'
-Plug 'cohama/lexima.vim'
 Plug 'ludovicchabant/vim-gutentags'
 Plug 'kingtaku/vterm'
+Plug 'mg979/vim-visual-multi'
+Plug 'dyng/ctrlsf.vim'
 
 call plug#end()
 
@@ -125,18 +129,24 @@ call plug#end()
 "" -------------------- Nerd-Tree ----------------------
 map ss :NERDTreeToggle<CR>
 let g:NERDTreeWinSize=24
-let g:NERDTreeMininalUI=1 
+let g:NERDTreeMinimalUI=1 
 let NERDTreeMapOpenVSplit='so'
 autocmd StdinReadPre * let s:std_in=1
-" Open NERDTree if a directory if opened
-let g:DIR_ENTER=0 
-autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) == 1 && !exists("s:std_in") | let g:DIR_ENTER=1 | exe 'NERDTreeToggle' argv()[0] | wincmd p | ene | exe 'cd '.argv()[0] | endif
+" Open NERDTree if a directory is opened
+let g:DIR_START=0 
+autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) == 1 && !exists("s:std_in") | let g:DIR_START=1 | exe 'NERDTreeToggle' argv()[0] | wincmd p | ene | exe 'cd '.argv()[0] | endif
 " Open NERDTree if no argument 
-autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | let g:DIR_ENTER=1 | exe 'NERDTreeToggle' | endif
-" Default cursor to opened file window 
-autocmd VimEnter * if argc() | wincmd p | endif 
-" Quit if NERDTree is the only window left 
-autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree() && g:DIR_ENTER != 1) | q | endif
+autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | let g:DIR_START=1 | exe 'NERDTreeToggle' | endif
+" When NERDTree is the only window left 
+" open empty buffer if started by opening a directory
+" quit otherwise
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree() && g:DIR_START == 0) | q | endif
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree() && g:DIR_START == 1) | enew | exe 'NERDTreeToggle' | endif
+
+" ---------------------- Nerdtree tabs --------------------
+"map ss <plug>NERDTreeTabsToggle<CR>
+"let g:nerdtree_tabs_open_on_console_startup = 1
+"let g:nerdtree_tabs_autofind = 1
 
 "" ------------------ vim-gitgutter -------------------
 " unmap conflict leader combo 
@@ -148,7 +158,8 @@ map <silent> <leader>I <Plug>InterestingWordsClear
 map n <Plug>InterestingWordsForeward
 map N <Plug>InterestingWordsBackward
 
-"" ---------------------- coc.nvim ---------------------------
+"" ------------------------------------ coc.nvim -------------------------------------------
+" coc-python, coc-json, coc-pairs 
 function! s:check_back_space() abort
   let col = col('.') - 1
   return !col || getline('.')[col - 1]  =~ '\s'
@@ -183,31 +194,62 @@ nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
 
 " ------------------------- Tagbar ----------------------------
-nmap <silent> <leader>t :TagbarToggle<cr> 
+nmap <silent> st :TagbarToggle<cr> 
 let g:tagbar_width = 25
 let g:tagbar_autofocus = 1
 let g:tagbar_map_jump = ["o", "<CR>"]
 let g:tagbar_map_showproto = "v"
 let g:tagbar_map_togglefold = "x"
 let g:tagbar_map_zoomwin = "a"
+let g:tagbar_map_togglesort = "ts"
 
-" ------------------------- Leaderf ---------------------------
-let g:Lf_ShowRelativePath = 0
-let g:Lf_HideHelp = 1 
+" ------------------------------------ vim-gutentags ----------------------------------
+let g:gutentags_project_root = ['.root', '.svn', '.git', '.project']
+let g:gutentags_ctags_tagfile = '.tags'
+
+" ---------------------------------------- Leaderf ---------------------------------------------
+let g:Lf_ShowRelativePath = -1
+let g:Lf_HideHelp = 1
 map <leader>p :LeaderfFunction!<cr>
 map <leader>o :LeaderfFile<cr>
+let g:Lf_NormalMap = {
+	\ "File":   [["<leader>o", ':exec g:Lf_py "fileExplManager.quit()"<CR>']],
+	\ "Buffer": [["<ESC>", ':exec g:Lf_py "bufExplManager.quit()"<CR>']],
+	\ "Mru":    [["<ESC>", ':exec g:Lf_py "mruExplManager.quit()"<CR>']],
+	\ "Tag":    [["<ESC>", ':exec g:Lf_py "tagExplManager.quit()"<CR>']],
+	\ "Function":    [["<leader>p", ':exec g:Lf_py "functionExplManager.quit()"<CR>']],
+	\ "Colorscheme":    [["<ESC>", ':exec g:Lf_py "colorschemeExplManager.quit()"<CR>']],
+	\ }
+let g:Lf_CommandMap = { '<C-j>' : ['<M-j>', '<Down>'], '<C-k>' : ['<M-k>', '<Up>'] }
 
-" ------------------------- lexima ---------------------------
-let g:lexima_enable_endwise_rules = 1
-let g:lexima_enable_newline_rules = 1
+" ------------------------------ ctrlsf ----------------------------
+nmap     <C-f> <Plug>CtrlSFPrompt
+vmap     <C-f> <Plug>CtrlSFVwordPath
+nnoremap <leader>f :CtrlSFToggle<CR>
 
+" ------------------------- vim-visual-multi -------------------------
+let g:VM_theme = 'ocean'
+nmap   <S-LeftMouse>         <Plug>(VM-Mouse-Cursor)
+nmap   <S-RightMouse>        <Plug>(VM-Mouse-Word)  
+nmap   <S-C-RightMouse>      <Plug>(VM-Mouse-Column)
+let g:VM_maps = {}
+let g:VM_maps["Switch Mode"]        = 'v'
+let g:VM_maps['Find Under']         = '<C-n>'           
+let g:VM_maps["Add Cursor Down"]    = '<S-Down>'      
+let g:VM_maps["Add Cursor Up"]      = '<S-Up>'       
+let g:VM_maps["Remove Region"]      = 'x'
+let g:VM_maps["x"]                  = ''
+let g:VM_maps["Skip Region"]        = '<C-x>'
+let g:VM_maps["Undo"]               = 'u'
+let g:VM_maps["Redo"]               = '<C-r>'
+let g:VM_maps["Add Cursor At Pos"]  = '+'
 
 " ======================== Languages ==========================
 
 " ------------- Python ---------------
 let g:pymode_python = 'python3'
 let g:pymode_syntax_space_errors = 0
-hi def link pythonParam             Identifier 
+hi def link pythonParam             Identifier
 hi def link pythonClassParameters   Identifier
 hi def link pythonSelf              Conventional
 hi def link pythonOperator          Keyword
