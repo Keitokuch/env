@@ -27,6 +27,7 @@ vimTheme() {
         cp ./vim-keitoku.vim.local ~/.vim/colors/vim-keitoku.vim 
     else 
         cp ./vim-keitoku.vim ~/.vim/colors/ 
+        cp ./vim-keitoku.vim ~/.config/nvim/colors/vim-keitoku.vim 
     fi 
     echo "vim colorscheme updated"
 }

@@ -9,19 +9,22 @@ endif
 
 let g:colors_name="vim-keitoku"
 let colors_name="vim-keitoku" 
-let s:black       = { "gui": "#132333", "cterm": "234" }
+let s:black       = { "gui": "#1c2833", "cterm": "234" }
 let s:red         = { "gui": "#e06c75", "cterm": "168" }
+let s:macro         = { "gui": "#ffa091", "cterm": "168" }
 let s:green       = { "gui": "#bae67e", "cterm": "149" }
-let s:yellow      = { "gui": "#ffd580", "cterm": "215" }
-let s:blue        = { "gui": "#6699cc", "cterm": "75"  }
+let s:constant    = { "gui": "#80d4ff", "cterm": "12" }
+let s:yellow      = { "gui": "#ffd073", "cterm": "215" }
+let s:blue        = { "gui": "#4faadd", "cterm": "75"  }
 let s:purple      = { "gui": "#d787d7", "cterm": "176" }
-let s:cyan        = { "gui": "#37dcee", "cterm": "81"  }
+let s:cyan        = { "gui": "#5ccfe6", "cterm": "81"  }
 let s:white       = { "gui": "#e0e3e3", "cterm": "188" }
 let s:orange      = { "gui": "#f99157", "cterm": "208" }
-let s:opt         = { "gui": "#5fafd7", "cterm": "74"} 
+"let s:opt         = { "gui": "#5fafd7", "cterm": "74"} 
+let s:opt         = { "gui": "#5fb3b3", "cterm": "74"} 
 let s:darkblue    = { "gui": "#6699cc", "cterm": "39"  }
-let s:lightblue   = { "gui": "#6699cc", "cterm": "12"  }
-let s:class       = s:red 
+let s:lightblue   = { "gui": "#4faadd", "cterm": "12"  }
+let s:class       = { "gui": "#c594c5", "cterm": "168" } 
 
 let s:fg          = s:white
 let s:bg          = s:black
@@ -119,12 +122,12 @@ call s:hi("WildMenu", s:fg, {}, "")
 " Syntax colors {
 call s:hi("Comment", s:comment_fg, {}, "italic")
 
-call s:hi("Constant", s:green, {}, "")
+call s:hi("Constant", s:constant, {}, "")
 call s:hi("String", s:green, {}, "")
 call s:hi("Character", s:green, {}, "")
-call s:hi("Number", s:cyan, {}, "")
+call s:hi("Number", s:constant, {}, "")
 call s:hi("Boolean", s:orange, {}, "")
-call s:hi("Float", s:cyan, {}, "")
+call s:hi("Float", s:constant, {}, "")
 
 call s:hi("Identifier", s:yellow, {}, "")
 call s:hi("Function", s:blue, {}, "")
@@ -137,13 +140,13 @@ call s:hi("Operator", s:opt, {}, "")
 call s:hi("Keyword", s:orange, {}, "")
 call s:hi("Exception", s:red, {}, "")
 
-call s:hi("PreProc", s:red, {}, "")
-call s:hi("Include", s:red, {}, "")
+call s:hi("PreProc", s:macro, {}, "")
+call s:hi("Include", s:macro, {}, "")
 call s:hi("Define", s:red, {}, "")
 call s:hi("Macro", s:red, {}, "")
-call s:hi("PreCondit", s:yellow, {}, "")
+call s:hi("PreCondit", s:macro, {}, "")
 
-call s:hi("Type", s:class, {}, "")
+call s:hi("Type", s:red, {}, "")
 call s:hi("StorageClass", s:class, {}, "")
 call s:hi("Structure", s:class, {}, "")
 call s:hi("Typedef", s:yellow, {}, "")

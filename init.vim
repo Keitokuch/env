@@ -1,7 +1,6 @@
 " neovim specific 
 let g:python2_host_prog = system('which python')[:-2]
 let g:python3_host_prog = system('which python3')[:-2]
-"let g:python3_host_prog = '/usr/local/bin/python3'
  
 " ----------------- Options ----------------
 syntax on 
@@ -35,6 +34,7 @@ set history=1000
 set laststatus=2    "always show status
 set clipboard=unnamed 
 set mouse=a
+set termguicolors 
 
 " -------------------- Color Scheme -------------------
 let g:airline_theme='onehalfdark'
@@ -87,6 +87,9 @@ inoremap <C-a> <ESC>I
 inoremap <C-f> <right>
 inoremap <C-b> <left>
 
+"" Terminal mode 
+tnoremap jk <C-\><C-n>
+
 " Minimal auto closing
 inoremap ( ()<left>
 inoremap [ []<left>
@@ -99,14 +102,21 @@ inoremap <expr> ] strpart(getline('.'), col('.')-1, 1) == "]" ? "\<Right>" : "]"
 inoremap <expr> } strpart(getline('.'), col('.')-1, 1) == "}" ? "\<Right>" : "}"
 inoremap <expr> ) strpart(getline('.'), col('.')-1, 1) == ")" ? "\<Right>" : ")"
 
+autocmd Filetype tex inoremap <expr> $ strpart(getline('.'), col('.')-1, 1) == "$" ? "\<Right>" : "$$<left>"
+
 "" ====================== Additional Features ========================
 " Start from last position
 au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
 
+" Restore Session 
+autocmd VimEnter * nested call StartSetup() 
+autocmd VimLeave * NERDTreeClose | VTermClose | mksession! ./.Session.vim 
+
+
 "" ========================== Vim-Plug ========================
 call plug#begin()
 
-Plug 'scrooloose/nerdtree', {'on': 'NERDTreeToggle' }
+Plug 'scrooloose/nerdtree', {on 'NERDTreeToggle'}
 Plug 'airblade/vim-gitgutter'
 Plug 'lfv89/vim-interestingwords'
 Plug 'connorholyday/vim-snazzy'
@@ -117,9 +127,12 @@ Plug 'python-mode/python-mode', { 'branch': 'develop' }
 Plug 'Yggdroot/LeaderF', { 'do': './install.sh' }
 Plug 'majutsushi/tagbar'
 Plug 'ludovicchabant/vim-gutentags'
-Plug 'kingtaku/vterm'
+Plug 'kingtaku/vterm', {on 'VTermToggleTerminal'}
 Plug 'mg979/vim-visual-multi'
 Plug 'dyng/ctrlsf.vim'
+Plug 'lervag/vimtex'
+Plug 'sirver/ultisnips'
+Plug 'honza/vim-snippets'
 
 call plug#end()
 
@@ -128,15 +141,18 @@ call plug#end()
 
 "" -------------------- Nerd-Tree ----------------------
 map ss :NERDTreeToggle<CR>
+map sf :NERDTreeFind<CR> 
 let g:NERDTreeWinSize=24
 let g:NERDTreeMinimalUI=1 
 let NERDTreeMapOpenVSplit='so'
 autocmd StdinReadPre * let s:std_in=1
 " Open NERDTree if a directory is opened
-let g:DIR_START=0 
-autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) == 1 && !exists("s:std_in") | let g:DIR_START=1 | exe 'NERDTreeToggle' argv()[0] | wincmd p | ene | exe 'cd '.argv()[0] | endif
+"let g:DIR_START=0 
+"autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) == 1 && !exists("s:std_in") | let g:DIR_START=1 | endif
+"autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) == 1 && !exists("s:std_in") | let g:DIR_START=1 | exe 'NERDTreeToggle' argv()[0] | wincmd p | ene | exe 'cd '.argv()[0] | endif
 " Open NERDTree if no argument 
-autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | let g:DIR_START=1 | exe 'NERDTreeToggle' | endif
+"autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | let g:DIR_START=1 | endif  
+
 " When NERDTree is the only window left 
 " open empty buffer if started by opening a directory
 " quit otherwise
@@ -159,7 +175,7 @@ map n <Plug>InterestingWordsForeward
 map N <Plug>InterestingWordsBackward
 
 "" ------------------------------------ coc.nvim -------------------------------------------
-" coc-python, coc-json, coc-pairs 
+" coc-python, coc-json, coc-pairs, coc-vimtex, coc-ultisnips 
 function! s:check_back_space() abort
   let col = col('.') - 1
   return !col || getline('.')[col - 1]  =~ '\s'
@@ -244,6 +260,28 @@ let g:VM_maps["Undo"]               = 'u'
 let g:VM_maps["Redo"]               = '<C-r>'
 let g:VM_maps["Add Cursor At Pos"]  = '+'
 
+" ------------------------- vimtex -------------------------
+let g:tex_flavor='latex'
+let g:vimtex_view_method='skim'
+set conceallevel=1
+let g:tex_conceal='abdmgs'
+let g:vimtex_quickfix_mode=2
+let g:vimtex_quickfix_ignore_all_warnings = 1
+let g:vimtex_compiler_latexmk = {
+    \ 'build_dir' : '.latex_aux',
+    \}
+augroup vimtex_config
+    autocmd Filetype tex nmap <leader>c :VimtexCompile<CR> 
+    " Start Compilation automatically on enter?
+    "autocmd User VimtexEventInitPost VimtexCompile 
+augroup end
+
+"------------------------- ultisnips -------------------------  
+let g:UltiSnipsExpandTrigger = 'C-;'
+let g:UltiSnipsJumpForwardTrigger = '<tab>'
+let g:UltiSnipsJumpBackwardTrigger = '<S-tab>'
+
+
 " ======================== Languages ==========================
 
 " ------------- Python ---------------
@@ -273,4 +311,36 @@ endfunc
 
 nnoremap <C-g> :call <SID>SynStack()<CR>
 
+fu! StartSetup()
+    if (argc() == 0 && !exists("s:std_in"))
+        let g:DIR_START = 1 
+        if !RestoreSess()
+            exe 'NERDTreeToggle'
+        endif 
+    elseif argc() == 1 && isdirectory(argv()[0]) == 1 && !exists("s:std_in")
+        let g:DIR_START = 1 
+        exe 'cd ' . argv()[0]
+        if !RestoreSess()
+            exe 'NERDTreeToggle' argv()[0] | wincmd p | ene 
+        endif 
+    else
+        let g:DIR_START=0 
+    endif 
+endfu 
 
+fu! RestoreSess()
+    if filereadable(getcwd() . '/.Session.vim')
+        exe 'so ' . getcwd() . '/.Session.vim'
+        if bufexists(1)
+            for l in range(1, bufnr('$'))
+                if bufwinnr(l) == -1
+                    exe 'sbuffer ' . l
+                endif
+            endfor
+        endif
+        exe 'NERDTreeFind' | wincmd p 
+        return 1
+    else 
+        return 0 
+    endif
+endfunction
