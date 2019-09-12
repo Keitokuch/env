@@ -41,6 +41,7 @@ curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 # vim colorscheme
 mkdir -p ~/.vim/colors/ 
+mkdir -p ~/.config/nvim/
 cp ./vim-keitoku.vim ~/.vim/colors/ 
 # install nodejs for coc.nvim
 #curl -sL install-node.now.sh/lts | bash
@@ -51,4 +52,4 @@ cp ./tmux.conf ~/.tmux.conf
 
 sudo apt install neovim 
 
-
+sudo apt install universal-ctags
