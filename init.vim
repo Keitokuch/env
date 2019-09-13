@@ -35,7 +35,7 @@ set laststatus=2    "always show status
 set clipboard=unnamed 
 set mouse=a
 set termguicolors 
-set scrolloff=15
+set scrolloff=18
 
 " -------------------- Color Scheme -------------------
 let g:airline_theme='onehalfdark'
