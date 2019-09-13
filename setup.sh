@@ -15,6 +15,11 @@ if ! [ -x "$(command -v tmux)" ]; then
 	sudo apt install tmux 
 fi 
 
+# get curl
+if ! [ -x "$(command -v curl)" ]; then
+	sudo apt install curl 
+fi 
+
 # get oh-my-zsh
 if [ ! -d "$OMZ" ]; then
 	sh -c "$(wget https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh -O -)"
@@ -34,6 +39,8 @@ zsh ~/.zshrc
 
 echo "setting vim configs"
 cp ./vimrc ~/.vimrc
+cp ./init.vim ~/.config/nvim/init.vim 
+
 # Vim plug
 curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
@@ -52,4 +59,4 @@ cp ./tmux.conf ~/.tmux.conf
 
 sudo apt install neovim 
 
-sudo apt install universal-ctags
+sudo snap install universal-ctags
