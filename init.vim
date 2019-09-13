@@ -35,6 +35,7 @@ set laststatus=2    "always show status
 set clipboard=unnamed 
 set mouse=a
 set termguicolors 
+set scrolloff=15
 
 " -------------------- Color Scheme -------------------
 let g:airline_theme='onehalfdark'
@@ -45,8 +46,8 @@ let mapleader=" "
 inoremap jj <ESC>
 map q <ESC>
 nnoremap Q q
-nnoremap <C-i> 10k10<C-y>
-nnoremap <C-d> 10j10<C-e>
+nnoremap <C-i> 10k
+nnoremap <C-d> 10j
 
 "" Split
 map s <nop>
@@ -116,7 +117,7 @@ autocmd VimLeave * NERDTreeClose | VTermClose | mksession! ./.Session.vim
 "" ========================== Vim-Plug ========================
 call plug#begin()
 
-Plug 'scrooloose/nerdtree', {on 'NERDTreeToggle'}
+Plug 'scrooloose/nerdtree'
 Plug 'airblade/vim-gitgutter'
 Plug 'lfv89/vim-interestingwords'
 Plug 'connorholyday/vim-snazzy'
@@ -127,7 +128,7 @@ Plug 'python-mode/python-mode', { 'branch': 'develop' }
 Plug 'Yggdroot/LeaderF', { 'do': './install.sh' }
 Plug 'majutsushi/tagbar'
 Plug 'ludovicchabant/vim-gutentags'
-Plug 'kingtaku/vterm', {on 'VTermToggleTerminal'}
+Plug 'kingtaku/vterm'
 Plug 'mg979/vim-visual-multi'
 Plug 'dyng/ctrlsf.vim'
 Plug 'lervag/vimtex'
