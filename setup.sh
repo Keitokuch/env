@@ -49,7 +49,20 @@ fi
 if [ ! -d "$OMZ" ]; then
 	sh -c "$(wget https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh -O -)"
     echo ">>> installed oh-my-zsh <<<"
+else
+    echo "=== oh-my-zsh already installed ==="
 fi
+
+# Vim plug       
+if [ ! -f  ~/.local/share/nvim/site/autoload/plug.vim ]; then 
+    echo ">>> installing vim-plug <<<"
+    curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
+        https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+    curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
+        https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+else
+    echo "=== vim-plug already installed ==="
+fi 
 
 # get tpm
 if [ ! -d "$TMP/tpm" ]; then
@@ -71,14 +84,6 @@ echo ">>> setting vim configs"
 cp ./vimrc ~/.vimrc
 cp ./init.vim ~/.config/nvim/init.vim 
 
-# Vim plug       
-if [ -f "~/.vim/autoload/plug.vim " ]; then 
-    echo ">>> installing vim-plug "
-    curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
-        https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-    curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
-        https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-fi 
 
 # vim colorscheme
 mkdir -p ~/.vim/colors/ 
