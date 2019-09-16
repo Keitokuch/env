@@ -271,6 +271,8 @@ let g:vimtex_view_method='skim'
 set conceallevel=1
 let g:tex_conceal='abdmgs'
 let g:vimtex_quickfix_mode=2
+let g:vimtex_quickfix_autoclose_after_keystrokes = 3
+let g:vimtex_quickfix_open_on_warning = 0 
 let g:vimtex_quickfix_ignore_all_warnings = 1
 let g:vimtex_compiler_latexmk = {
     \ 'build_dir' : '.latex_aux',
