@@ -36,6 +36,7 @@ set clipboard=unnamed
 set mouse=a
 set termguicolors 
 set scrolloff=18
+set showtabline=2
 
 " -------------------- Color Scheme -------------------
 let g:airline_theme='onehalfdark'
@@ -59,10 +60,10 @@ map <leader>l <C-w>l
 map <leader>h <C-w>h
 map <leader>k <C-w>k
 map <leader>j <C-w>j
-map <up> :resize +5<CR>
-map <down> :resize -5<CR>
-map <left> :vertical resize-5<CR>
-map <right> :vertical resize+5<CR>
+map <S-C-up> :resize +5<CR>
+map <S-C-down> :resize -5<CR>
+map <S-C-left> :vertical resize-5<CR>
+map <S-C-right> :vertical resize+5<CR>
 
 "" Tab
 map <leader>t :tabe<CR>
@@ -111,7 +112,7 @@ au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g
 
 " Restore Session 
 autocmd VimEnter * nested call StartSetup() 
-autocmd VimLeave * NERDTreeClose | VTermClose | mksession! ./.Session.vim 
+autocmd VimLeave * call LeaveSetup()
 
 
 "" ========================== Vim-Plug ========================
@@ -134,6 +135,9 @@ Plug 'dyng/ctrlsf.vim'
 Plug 'lervag/vimtex'
 Plug 'sirver/ultisnips'
 Plug 'honza/vim-snippets'
+Plug 'octol/vim-cpp-enhanced-highlight'
+Plug 'vim-scripts/TagHighlight'
+Plug 'jistr/vim-nerdtree-tabs'
 
 call plug#end()
 
@@ -151,12 +155,6 @@ let g:NERDTreeWinSize=24
 let g:NERDTreeMinimalUI=1 
 let NERDTreeMapOpenVSplit='so'
 autocmd StdinReadPre * let s:std_in=1
-" Open NERDTree if a directory is opened
-"let g:DIR_START=0 
-"autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) == 1 && !exists("s:std_in") | let g:DIR_START=1 | endif
-"autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) == 1 && !exists("s:std_in") | let g:DIR_START=1 | exe 'NERDTreeToggle' argv()[0] | wincmd p | ene | exe 'cd '.argv()[0] | endif
-" Open NERDTree if no argument 
-"autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | let g:DIR_START=1 | endif  
 
 " When NERDTree is the only window left 
 " open empty buffer if started by opening a directory
@@ -288,6 +286,10 @@ let g:UltiSnipsExpandTrigger = 'C-;'
 let g:UltiSnipsJumpForwardTrigger = '<tab>'
 let g:UltiSnipsJumpBackwardTrigger = '<S-tab>'
 
+" ----------------------- cpp-enhanced-highlight ------------------------
+let g:cpp_class_scope_highlight = 1
+let g:cpp_member_variable_highlight = 1
+
 
 " ======================== Languages ==========================
 
@@ -351,3 +353,11 @@ fu! RestoreSess()
         return 0 
     endif
 endfunction
+
+fu! LeaveSetup()
+    let currTab = tabpagenr()
+    tabdo NERDTreeClose | VTermClose 
+    exe 'tabn ' . currTab 
+    mksession! ./.Session.vim 
+endfu 
+
