@@ -68,7 +68,7 @@ map <S-C-right> :vertical resize+5<CR>
 "" Tab
 map <leader>t :tabe<CR>
 map <leader>] :+tabnext<CR>
-map <leader>[ :-tabnext<CR> 
+map <leader>[ :-tabnext<CR>
 
 "" Buffer 
 map <leader>s :w<CR>
@@ -111,7 +111,7 @@ autocmd Filetype tex inoremap <expr> $ strpart(getline('.'), col('.')-1, 1) == "
 au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
 
 " Restore Session 
-autocmd VimEnter * nested call StartSetup() 
+autocmd VimEnter * nested call StartSetup()
 autocmd VimLeave * call LeaveSetup()
 
 
@@ -150,7 +150,7 @@ call plug#end()
 
 "" -------------------- Nerd-Tree ----------------------
 map ss :NERDTreeToggle<CR>
-map sf :NERDTreeFind<CR> 
+map sf :NERDTreeFind<CR>
 let g:NERDTreeWinSize=24
 let g:NERDTreeMinimalUI=1 
 let NERDTreeMapOpenVSplit='so'
@@ -213,14 +213,14 @@ nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
 
 " ------------------------- Tagbar ----------------------------
-nmap <silent> st :TagbarToggle<cr> 
+nmap <silent> st :TagbarToggle<CR>
 let g:tagbar_width = 25
 let g:tagbar_autofocus = 1
 let g:tagbar_map_jump = ["o", "<CR>"]
 let g:tagbar_map_showproto = "v"
 let g:tagbar_map_togglefold = "x"
 let g:tagbar_map_zoomwin = "a"
-let g:tagbar_map_togglesort = "ts"
+let g:tagbar_map_togglesort = "so"
 
 " ------------------------------------ vim-gutentags ----------------------------------
 let g:gutentags_project_root = ['.root', '.svn', '.git', '.project']
@@ -276,7 +276,7 @@ let g:vimtex_compiler_latexmk = {
     \ 'build_dir' : '.latex_aux',
     \}
 augroup vimtex_config
-    autocmd Filetype tex nmap <leader>c :VimtexCompile<CR> 
+    autocmd Filetype tex nmap <leader>c :VimtexCompile<CR>
     " Start Compilation automatically on enter?
     "autocmd User VimtexEventInitPost VimtexCompile 
 augroup end
@@ -289,6 +289,8 @@ let g:UltiSnipsJumpBackwardTrigger = '<S-tab>'
 " ----------------------- cpp-enhanced-highlight ------------------------
 let g:cpp_class_scope_highlight = 1
 let g:cpp_member_variable_highlight = 1
+hi def link cCustomMemVar           Identifier
+hi def link cCustomPtr              Operator
 
 
 " ======================== Languages ==========================
