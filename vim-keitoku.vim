@@ -22,7 +22,8 @@ let s:white       = { "gui": "#e0e3e3", "cterm": "188" }
 let s:orange      = { "gui": "#f99157", "cterm": "208" }
 "let s:opt         = { "gui": "#5fafd7", "cterm": "74"} 
 let s:opt         = { "gui": "#5fb3b3", "cterm": "74"} 
-let s:darkblue    = { "gui": "#6699cc", "cterm": "39"  }
+let s:greyblue    = { "gui": "#6699cc", "cterm": "39"  }
+let s:darkblue    = { "gui": "#1d87b8", "cterm": "39"  }
 let s:lightblue   = { "gui": "#4faadd", "cterm": "12"  }
 let s:class       = { "gui": "#c594c5", "cterm": "168" } 
 
@@ -33,7 +34,7 @@ let s:comment_fg  = { "gui": "#5c6370", "cterm": "241" }
 let s:gutter_bg   = { "gui": "#282c34", "cterm": "236" }
 let s:gutter_fg   = { "gui": "#919baa", "cterm": "247" }
 
-let s:cursor_line = { "gui": "#313640", "cterm": "237" }
+let s:cursor_line = { "gui": "#414650", "cterm": "237" }
 let s:color_col   = { "gui": "#313640", "cterm": "237" }
 
 let s:selection   = { "gui": "#474e5d", "cterm": "239" }
@@ -98,9 +99,9 @@ call s:hi("SpellRare", s:yellow, {}, "")
 
 call s:hi("StatusLine", s:blue, s:cursor_line, "")
 call s:hi("StatusLineNC", s:comment_fg, s:cursor_line, "")
-call s:hi("TabLine", s:comment_fg, s:cursor_line, "")
-call s:hi("TabLineFill", s:comment_fg, s:cursor_line, "")
-call s:hi("TabLineSel", s:fg, s:bg, "")
+call s:hi("TabLine", s:gutter_fg, s:gutter_bg, "")
+call s:hi("TabLineFill", s:gutter_fg, s:cursor_line, "")
+call s:hi("TabLineSel", s:white, s:darkblue, "")
 
 
 call s:hi("Visual", {}, s:selection, "")
