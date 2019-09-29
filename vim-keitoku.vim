@@ -73,10 +73,10 @@ call s:hi("CursorLine", {}, s:cursor_line, "")
 call s:hi("LineNr", s:gutter_fg, s:gutter_bg, "")
 call s:hi("CursorLineNr", s:fg, {}, "")
 
-call s:hi("DiffAdd", s:green, {}, "")
+call s:hi("DiffAdd", s:blue, {}, "")
 call s:hi("DiffChange", s:yellow, {}, "")
 call s:hi("DiffDelete", s:red, {}, "")
-call s:hi("DiffText", s:blue, {}, "")
+call s:hi("DiffText", s:green, {}, "")
 
 call s:hi("IncSearch", s:bg, s:yellow, "")
 call s:hi("Search", s:bg, s:yellow, "")
@@ -99,9 +99,11 @@ call s:hi("SpellRare", s:yellow, {}, "")
 
 call s:hi("StatusLine", s:blue, s:cursor_line, "")
 call s:hi("StatusLineNC", s:comment_fg, s:cursor_line, "")
-call s:hi("TabLine", s:gutter_fg, s:gutter_bg, "")
-call s:hi("TabLineFill", s:gutter_fg, s:cursor_line, "")
+call s:hi("TabLine", s:fg, s:cursor_line, "")
+call s:hi("TabLineFill", s:fg, s:cursor_line, "")
 call s:hi("TabLineSel", s:white, s:darkblue, "")
+call s:hi("TabAlt", s:cyan, s:cursor_line, "")
+call s:hi("Block", s:bg, s:green, "")
 
 
 call s:hi("Visual", {}, s:selection, "")

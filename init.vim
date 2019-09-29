@@ -29,7 +29,7 @@ set guioptions-=T
 set vb t_vb=
 set ruler
 set nohls
-set runtimepath+=~/.vim
+"set runtimepath+=~/.vim
 set history=1000 
 set laststatus=2    "always show status
 set clipboard=unnamed 
@@ -37,6 +37,8 @@ set mouse=a
 set termguicolors 
 set scrolloff=18
 set showtabline=2
+autocmd FileType help wincmd L | vert resize 79
+set noswapfile
 
 " -------------------- Color Scheme -------------------
 let g:airline_theme='onehalfdark'
@@ -60,10 +62,16 @@ map <leader>l <C-w>l
 map <leader>h <C-w>h
 map <leader>k <C-w>k
 map <leader>j <C-w>j
+map <leader>p <C-w>p
 map <S-C-up> :resize +5<CR>
 map <S-C-down> :resize -5<CR>
 map <S-C-left> :vertical resize-5<CR>
 map <S-C-right> :vertical resize+5<CR>
+
+map <M-up> :resize +5<CR>
+map <M-down> :resize -5<CR>
+map <M-left> :vertical resize-5<CR>
+map <M-right> :vertical resize+5<CR>
 
 "" Tab
 map <leader>t :tabe<CR>
@@ -137,7 +145,9 @@ Plug 'sirver/ultisnips'
 Plug 'honza/vim-snippets'
 Plug 'octol/vim-cpp-enhanced-highlight'
 Plug 'vim-scripts/TagHighlight'
-Plug 'jistr/vim-nerdtree-tabs'
+Plug 'mkitt/tabline.vim'
+"Plug 'jistr/vim-nerdtree-tabs'
+Plug 'bagrat/vim-buffet'
 
 call plug#end()
 
@@ -229,7 +239,7 @@ let g:gutentags_ctags_tagfile = '.tags'
 " ---------------------------------------- Leaderf ---------------------------------------------
 let g:Lf_ShowRelativePath = -1
 let g:Lf_HideHelp = 1
-map <leader>p :LeaderfFunction!<cr>
+map <leader>r :LeaderfFunction!<cr>
 map <leader>o :LeaderfFile<cr>
 let g:Lf_NormalMap = {
 	\ "File":   [["<leader>o", ':exec g:Lf_py "fileExplManager.quit()"<CR>']],
@@ -292,12 +302,27 @@ let g:cpp_member_variable_highlight = 1
 hi def link cCustomMemVar           Identifier
 hi def link cCustomPtr              Operator
 
+" ----------------------- vim-buffet -------------------------
+map <leader>] :bn<CR>
+map <leader>[ :bp<CR>
+map <leader>t :Bw<CR>
+map <leader><leader>] :+tabnext<CR>
+map <leader><leader>[ :-tabnext<CR>
+map <leader><leader>t : tabe<CR>
+function! g:BuffetSetCustomColors()
+    hi! link BuffetCurrentBuffer TabLineSel 
+    hi! link BuffetActiveBuffer  TabAlt
+    hi! link BuffetBuffer        TabLine
+    hi! link BuffetTab           Block
+endfunction
+
 
 " ======================== Languages ==========================
 
 " ------------- Python ---------------
 let g:pymode_python = 'python3'
 let g:pymode_syntax_space_errors = 0
+let g:pymode_lint_cwindow = 0 
 hi def link pythonParam             Identifier
 hi def link pythonClassParameters   Identifier
 hi def link pythonSelf              Conventional
