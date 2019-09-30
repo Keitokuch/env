@@ -101,7 +101,7 @@ call s:hi("StatusLine", s:blue, s:cursor_line, "")
 call s:hi("StatusLineNC", s:comment_fg, s:cursor_line, "")
 call s:hi("TabLine", s:fg, s:cursor_line, "")
 call s:hi("TabLineFill", s:fg, s:cursor_line, "")
-call s:hi("TabLineSel", s:white, s:darkblue, "")
+call s:hi("TabLineSel", s:fg, s:darkblue, "")
 call s:hi("TabAlt", s:cyan, s:cursor_line, "")
 call s:hi("Block", s:bg, s:green, "")
 

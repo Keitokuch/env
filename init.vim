@@ -37,7 +37,7 @@ set mouse=a
 set termguicolors 
 set scrolloff=18
 set showtabline=2
-autocmd FileType help wincmd L | vert resize 79
+autocmd FileType help wincmd L | vert resize 80
 set noswapfile
 
 " -------------------- Color Scheme -------------------
@@ -305,7 +305,7 @@ hi def link cCustomPtr              Operator
 " ----------------------- vim-buffet -------------------------
 map <leader>] :bn<CR>
 map <leader>[ :bp<CR>
-map <leader>t :Bw<CR>
+map <silent><expr> <leader>w buflisted(bufnr("%"))? ":Bw\<CR>" : ":q\<CR>"
 map <leader><leader>] :+tabnext<CR>
 map <leader><leader>[ :-tabnext<CR>
 map <leader><leader>t : tabe<CR>
@@ -331,6 +331,10 @@ hi def link pythonFunction          FunctionDeclaration
 hi def link pythonBuiltinFunc       BuiltinFunc 
 au Filetype python syntax match pythonFunctionCall /\v[[:alpha:]_]+\ze(\s?\()/
 hi def link pythonFunctionCall FunctionCall
+
+" -------------- Lua -----------------
+hi def link LuaFunction             FunctionDeclaration 
+hi def link LuaIn                   Conditional
 
 " ================== Utils ===================
 function! <SID>SynStack()
@@ -388,3 +392,12 @@ fu! LeaveSetup()
     mksession! ./.Session.vim 
 endfu 
 
+function! MyTabline()
+    let tabline=buffet#render()
+    if g:NERDTree.IsOpen()
+        let width = winwidth(g:NERDTree.GetWinNum())
+        let tabline = '%#Normal#' . repeat(' ', width) . '%#VertSplit# ' . tabline
+    endif 
+    return tabline
+endfunction 
+au VimEnter * set tabline=%!MyTabline()
