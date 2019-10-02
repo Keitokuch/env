@@ -80,6 +80,7 @@ echo ">>> setting tmux configs"
 tic ./utils/xterm-256color-italic.terminfo 
 cp ./tmux.conf ~/.tmux.conf 
 
+mkdir -p ~/.config/nvim/
 echo ">>> setting vim configs"
 cp ./vimrc ~/.vimrc
 cp ./init.vim ~/.config/nvim/init.vim 
@@ -87,7 +88,7 @@ cp ./init.vim ~/.config/nvim/init.vim
 
 # vim colorscheme
 mkdir -p ~/.vim/colors/ 
-mkdir -p ~/.config/nvim/colors
+mkdir -p ~/.config/nvim/colors/
 cp ./vim-keitoku.vim ~/.vim/colors/ 
 cp ./vim-keitoku.vim ~/.config/nvim/colors/
 
