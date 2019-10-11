@@ -160,7 +160,7 @@ call s:hi("FunctionDeclaration", s:cyan, {}, "")
 call s:hi("BuiltinFunc", s:cyan, {}, "") 
 
 call s:hi("Special", s:red, {}, "")
-call s:hi("SpecialChar", s:fg, {}, "")
+call s:hi("SpecialChar", s:opt, {}, "")
 call s:hi("Tag", s:fg, {}, "")
 call s:hi("Delimiter", s:fg, {}, "")
 call s:hi("SpecialComment", s:fg, {}, "")

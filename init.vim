@@ -341,6 +341,9 @@ hi def link pythonFunctionCall FunctionCall
 hi def link LuaFunction             FunctionDeclaration 
 hi def link LuaIn                   Conditional
 
+" ----------------- C family --------------
+hi def link cFormat                 Type  
+
 " ================== Utils ===================
 function! <SID>SynStack()
 
