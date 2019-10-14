@@ -1,4 +1,8 @@
-
+"
+"  vim colorscheme
+"  vim-keitoku.vim
+"  author: JC
+"
 
 set background=dark
 highlight clear
@@ -11,7 +15,7 @@ let g:colors_name="vim-keitoku"
 let colors_name="vim-keitoku" 
 let s:black       = { "gui": "#1c2833", "cterm": "234" }
 let s:red         = { "gui": "#e06c75", "cterm": "168" }
-let s:macro         = { "gui": "#ffa091", "cterm": "168" }
+let s:macro       = { "gui": "#ffa091", "cterm": "168" }
 let s:green       = { "gui": "#bae67e", "cterm": "149" }
 let s:constant    = { "gui": "#80d4ff", "cterm": "12" }
 let s:yellow      = { "gui": "#ffd073", "cterm": "215" }
@@ -20,7 +24,6 @@ let s:purple      = { "gui": "#d787d7", "cterm": "176" }
 let s:cyan        = { "gui": "#5ccfe6", "cterm": "81"  }
 let s:white       = { "gui": "#e0e3e3", "cterm": "188" }
 let s:orange      = { "gui": "#f99157", "cterm": "208" }
-"let s:opt         = { "gui": "#5fafd7", "cterm": "74"} 
 let s:opt         = { "gui": "#5fb3b3", "cterm": "74"} 
 let s:greyblue    = { "gui": "#6699cc", "cterm": "39"  }
 let s:darkblue    = { "gui": "#1d87b8", "cterm": "39"  }
@@ -34,11 +37,12 @@ let s:comment_fg  = { "gui": "#5c6370", "cterm": "241" }
 let s:gutter_bg   = { "gui": "#282c34", "cterm": "236" }
 let s:gutter_fg   = { "gui": "#919baa", "cterm": "247" }
 
-let s:cursor_line = { "gui": "#414650", "cterm": "237" }
+let s:cursor_line = { "gui": "#1b3e5e", "cterm": "237" }
 let s:color_col   = { "gui": "#313640", "cterm": "237" }
 
 let s:selection   = { "gui": "#474e5d", "cterm": "239" }
 let s:vertsplit   = { "gui": "#313640", "cterm": "237" }
+
 
 function! s:hi(group, fg, bg, attr)
     let hi_str = "hi " . a:group
@@ -61,8 +65,7 @@ function! s:hi(group, fg, bg, attr)
 endfunction  
 
 
-
-" User interface colors {
+" User interface colors
 call s:hi("Normal", s:fg, s:bg, "")
 call s:hi("NonText", s:fg, {}, "")
 
@@ -122,7 +125,7 @@ call s:hi("SpecialKey", s:fg, {}, "")
 call s:hi("Title", s:green, {}, "")
 call s:hi("WildMenu", s:fg, {}, "")
 
-" Syntax colors {
+" Syntax colors
 call s:hi("Comment", s:comment_fg, {}, "italic")
 
 call s:hi("Constant", s:constant, {}, "")
@@ -170,7 +173,5 @@ call s:hi("Underlined", s:fg, {}, "")
 call s:hi("Ignore", s:fg, {}, "")
 call s:hi("Error", s:red, s:gutter_bg, "")
 call s:hi("Todo", s:purple, {}, "")
-
-
 " }
 

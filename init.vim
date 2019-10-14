@@ -19,6 +19,7 @@ set foldmethod=indent
 set foldlevel=99
 set hlsearch 
 set incsearch
+set ignorecase
 set smartcase
 set autoindent
 set smartindent
@@ -40,6 +41,14 @@ set showtabline=2
 autocmd FileType help wincmd L | vert resize 80
 set noswapfile
 
+set noshowmode
+set splitbelow 
+set splitright
+set cursorline
+autocmd WinEnter * setlocal cursorline
+autocmd WinLeave * setlocal nocursorline
+cmap w!! w !sudo tee%
+
 " -------------------- Color Scheme -------------------
 let g:airline_theme='onehalfdark'
 colorscheme vim-keitoku
@@ -55,9 +64,9 @@ nnoremap <C-d> 10j
 "" Split
 map s <nop>
 map sl :set splitright<CR>:vsplit<CR>
-map sh :set nosplitright<CR>:vsplit<CR>
+map sh :set nosplitright<CR>:vsplit<CR>:set splitright<CR>
 map sj :set splitbelow<CR>:split<CR>
-map sk :set nosplitbelow<CR>:split<CR>
+map sk :set nosplitbelow<CR>:split<CR>:set splitbelow<CR>
 map <leader>l <C-w>l
 map <leader>h <C-w>h
 map <leader>k <C-w>k
@@ -82,6 +91,7 @@ map <leader>[ :-tabnext<CR>
 map <leader>s :w<CR>
 map <leader>q :qall<CR>
 map <leader>w :q<CR>
+map <silent><expr> <leader>w buflisted(bufnr("%"))? ":bp<cr>:bd #<cr>" : ":q\<CR>"
 
 "" Jumping
 " tag jump
@@ -127,15 +137,20 @@ autocmd VimLeave * call LeaveSetup()
 call plug#begin()
 
 Plug 'scrooloose/nerdtree'
+""
+Plug 'tiagofumo/vim-nerdtree-syntax-highlight' 
+Plug 'ryanoasis/vim-devicons'
+""
 Plug 'airblade/vim-gitgutter'
 Plug 'lfv89/vim-interestingwords'
 Plug 'connorholyday/vim-snazzy'
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'neoclide/coc.nvim', {'branch': 'release', 'do': { -> coc#util#install()}}
 Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
 Plug 'sonph/onehalf', {'rtp':'vim/'}
 Plug 'python-mode/python-mode', { 'for': 'python', 'branch': 'develop' }
 Plug 'Yggdroot/LeaderF', { 'do': './install.sh' }
-Plug 'majutsushi/tagbar', { 'on': 'TagbarToggle' }
+Plug 'majutsushi/tagbar', { 'on': ['TagbarToggle', 'TagbarOpen', 'TagbarShowTag'] }
 Plug 'ludovicchabant/vim-gutentags'
 Plug 'kingtaku/vterm'
 Plug 'mg979/vim-visual-multi'
@@ -145,9 +160,12 @@ Plug 'sirver/ultisnips'
 Plug 'honza/vim-snippets'
 Plug 'octol/vim-cpp-enhanced-highlight', { 'for': ['c', 'cpp', 'cuda'] }
 Plug 'vim-scripts/TagHighlight'
-Plug 'mkitt/tabline.vim'
+"Plug 'mkitt/tabline.vim'
 "Plug 'jistr/vim-nerdtree-tabs'
-Plug 'bagrat/vim-buffet'
+"Plug 'bagrat/vim-buffet'
+"Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+Plug 'Shougo/neosnippet.vim'
+Plug 'Shougo/neosnippet-snippets'
 
 call plug#end()
 
@@ -159,8 +177,8 @@ call plug#end()
 " ====================== Plugin Configs ==========================
 
 "" -------------------- Nerd-Tree ----------------------
-map ss :NERDTreeToggle<CR>
-map sf :NERDTreeFind<CR>
+map <leader>d :NERDTreeToggle<CR>
+map <silent><expr> sf exists("b:NERDTree") ? "\<C-w>p" : ":NERDTreeFind<CR>"
 let g:NERDTreeWinSize=24
 let g:NERDTreeMinimalUI=1 
 let NERDTreeMapOpenVSplit='so'
@@ -177,6 +195,24 @@ autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isT
 "let g:nerdtree_tabs_open_on_console_startup = 1
 "let g:nerdtree_tabs_autofind = 1
 
+" --------------------- vim-airline --------------------
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#coc#enabled = 1
+let g:airline#extensions#tabline#buffer_idx_mode = 1
+nmap <leader>1 <Plug>AirlineSelectTab1
+nmap <leader>2 <Plug>AirlineSelectTab2
+nmap <leader>3 <Plug>AirlineSelectTab3
+nmap <leader>4 <Plug>AirlineSelectTab4
+nmap <leader>5 <Plug>AirlineSelectTab5
+nmap <leader>6 <Plug>AirlineSelectTab6
+nmap <leader>7 <Plug>AirlineSelectTab7
+nmap <leader>8 <Plug>AirlineSelectTab8
+nmap <leader>9 <Plug>AirlineSelectTab9
+let g:airline#extensions#tabline#show_close_button = 1
+let g:airline#extensions#tabline#middle_click_preserves_windows = 1
+let g:airline#extensions#tabline#keymap_ignored_filetypes = ['vimfiler', 'nerdtree', 'terminal', 'tagbar', 'help']
+
+
 "" ------------------ vim-gitgutter -------------------
 " unmap conflict leader combo 
 let g:gitgutter_map_keys = 0 
@@ -188,7 +224,7 @@ map n <Plug>InterestingWordsForeward
 map N <Plug>InterestingWordsBackward
 
 "" ------------------------------------ coc.nvim -------------------------------------------
-" coc-python, coc-json, coc-pairs, coc-vimtex, coc-ultisnips 
+" coc-python, coc-json, coc-pairs, coc-vimtex, coc-ultisnips, coc-html
 function! s:check_back_space() abort
   let col = col('.') - 1
   return !col || getline('.')[col - 1]  =~ '\s'
@@ -214,6 +250,8 @@ inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm() : "\<C-g>u\<CR>"
 " Use K to show documentation in preview window
 nnoremap <silent> K :call <SID>show_documentation()<CR>
+
+autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
 " Remap for rename current word
 nmap <leader>rn <Plug>(coc-rename)
 " Remap keys for gotos
@@ -222,10 +260,16 @@ nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
 
+let g:coc_snippet_next = '<tab>'
+
+" --------------------- neosnippet ------------------------
+"
+
 " ------------------------- Tagbar ----------------------------
-nmap <silent> st :TagbarToggle<CR>
+map <leader>t :TagbarToggle<CR>
+map st :TagbarOpen fj<CR>
 let g:tagbar_width = 25
-let g:tagbar_autofocus = 1
+let g:tagbar_autofocus = 0
 let g:tagbar_map_jump = ["o", "<CR>"]
 let g:tagbar_map_showproto = "v"
 let g:tagbar_map_togglefold = "x"
@@ -303,9 +347,9 @@ hi def link cCustomMemVar           Identifier
 hi def link cCustomPtr              Operator
 
 " ----------------------- vim-buffet -------------------------
-map <leader>] :bn<CR>
-map <leader>[ :bp<CR>
-map <silent><expr> <leader>w buflisted(bufnr("%"))? ":Bw\<CR>" : ":q\<CR>"
+map <silent><expr> <leader>] buflisted(bufnr("%"))? ":bn\<CR>" : ""
+map <silent><expr> <leader>[ buflisted(bufnr("%"))? ":bp\<CR>" : ""
+"map <silent><expr> <leader>w buflisted(bufnr("%"))? ":Bw\<CR>" : ":q\<CR>"
 map <leader><leader>] :+tabnext<CR>
 map <leader><leader>[ :-tabnext<CR>
 map <leader><leader>t : tabe<CR>
@@ -315,7 +359,15 @@ function! g:BuffetSetCustomColors()
     hi! link BuffetBuffer        TabLine
     hi! link BuffetTab           Block
 endfunction
+let g:buffet_show_index = 1
+let g:buffet_use_devicons = 0
+let g:buffet_powerline_separators = 0
+"let g:buffet_tab_icon = "\uf00a"
+"let g:buffet_left_trunc_icon = "\uf0a8"
+"let g:buffet_right_trunc_icon = "\uf0a9"
 
+" ------------------ deoplete -----------------------
+let g:deoplete#enable_at_startup = 1
 
 " ======================== Languages ==========================
 
@@ -346,15 +398,10 @@ hi def link cFormat                 Type
 
 " ================== Utils ===================
 function! <SID>SynStack()
-
     if !exists("*synstack")
-
         return
-
     endif
-
     echo map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")')
-
 endfunc
 
 nnoremap <C-g> :call <SID>SynStack()<CR>
@@ -395,13 +442,20 @@ endfunction
 
 fu! LeaveSetup()
     let currTab = tabpagenr()
-    tabdo NERDTreeClose | VTermClose 
-    exe 'tabn ' . currTab 
-    mksession! ./.Session.vim 
+    tabdo helpclose
+    if exists('g:loaded_nerd_tree') | tabdo NERDTreeClose
+    endif
+    if exists('g:loaded_vterm') | tabdo VTermClose
+    endif
+    if exists('g:loaded_tagbar') | tabdo TagbarClose
+    endif
+    exe 'tabn ' . currTab
+    mksession! ./.Session.vim
 endfu 
 
 function! MyTabline()
-    let tabline=buffet#render()
+    "let tabline=buffet#render()
+    let tabline=airline#extensions#tabline#get()
     if g:NERDTree.IsOpen()
         let width = winwidth(g:NERDTree.GetWinNum())
         let tabline = '%#Normal#' . repeat(' ', width) . '%#VertSplit# ' . tabline
