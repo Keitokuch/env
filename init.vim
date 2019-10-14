@@ -208,9 +208,12 @@ nmap <leader>6 <Plug>AirlineSelectTab6
 nmap <leader>7 <Plug>AirlineSelectTab7
 nmap <leader>8 <Plug>AirlineSelectTab8
 nmap <leader>9 <Plug>AirlineSelectTab9
+nmap <leader>[ <Plug>AirlineSelectPrevTab
+nmap <leader>] <Plug>AirlineSelectNextTab
 let g:airline#extensions#tabline#show_close_button = 1
 let g:airline#extensions#tabline#middle_click_preserves_windows = 1
 let g:airline#extensions#tabline#keymap_ignored_filetypes = ['vimfiler', 'nerdtree', 'terminal', 'tagbar', 'help']
+
 
 
 "" ------------------ vim-gitgutter -------------------
