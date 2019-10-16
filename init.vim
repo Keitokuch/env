@@ -63,6 +63,7 @@ nnoremap <C-d> 10j
 
 "" Split
 map s <nop>
+map S <nop>
 map sl :set splitright<CR>:vsplit<CR>
 map sh :set nosplitright<CR>:vsplit<CR>:set splitright<CR>
 map sj :set splitbelow<CR>:split<CR>
@@ -162,7 +163,7 @@ Plug 'octol/vim-cpp-enhanced-highlight', { 'for': ['c', 'cpp', 'cuda'] }
 Plug 'vim-scripts/TagHighlight'
 "Plug 'mkitt/tabline.vim'
 "Plug 'jistr/vim-nerdtree-tabs'
-"Plug 'bagrat/vim-buffet'
+Plug 'bagrat/vim-buffet'
 "Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'Shougo/neosnippet.vim'
 Plug 'Shougo/neosnippet-snippets'
@@ -178,10 +179,12 @@ call plug#end()
 
 "" -------------------- Nerd-Tree ----------------------
 map <leader>d :NERDTreeToggle<CR>
-map <silent><expr> sf exists("b:NERDTree") ? "\<C-w>p" : ":NERDTreeFind<CR>"
+map <silent><expr> sf exists("b:NERDTree") ? "\<C-w>p" : ":NERDTreeFocus<CR>"
+map <silent><expr> sF exists("b:NERDTree") ? "\<C-w>p" : ":NERDTreeFind<CR>"
 let g:NERDTreeWinSize=24
 let g:NERDTreeMinimalUI=1 
 let NERDTreeMapOpenVSplit='so'
+let NERDTreeMapToggleZoom='a'
 autocmd StdinReadPre * let s:std_in=1
 
 " When NERDTree is the only window left 
@@ -271,6 +274,7 @@ let g:coc_snippet_next = '<tab>'
 " ------------------------- Tagbar ----------------------------
 map <leader>t :TagbarToggle<CR>
 map st :TagbarOpen fj<CR>
+map <silent><expr> st b:current_syntax == "tagbar" ? "\<C-w>p" : ":TagbarOpen fj<CR>"
 let g:tagbar_width = 25
 let g:tagbar_autofocus = 0
 let g:tagbar_map_jump = ["o", "<CR>"]
@@ -350,9 +354,9 @@ hi def link cCustomMemVar           Identifier
 hi def link cCustomPtr              Operator
 
 " ----------------------- vim-buffet -------------------------
-map <silent><expr> <leader>] buflisted(bufnr("%"))? ":bn\<CR>" : ""
-map <silent><expr> <leader>[ buflisted(bufnr("%"))? ":bp\<CR>" : ""
-"map <silent><expr> <leader>w buflisted(bufnr("%"))? ":Bw\<CR>" : ":q\<CR>"
+"map <silent><expr> <leader>] buflisted(bufnr("%"))? ":bn\<CR>" : ""
+"map <silent><expr> <leader>[ buflisted(bufnr("%"))? ":bp\<CR>" : ""
+map <silent><expr> <leader>w buflisted(bufnr("%"))? ":Bw\<CR>" : ":q\<CR>"
 map <leader><leader>] :+tabnext<CR>
 map <leader><leader>[ :-tabnext<CR>
 map <leader><leader>t : tabe<CR>
@@ -365,9 +369,9 @@ endfunction
 let g:buffet_show_index = 1
 let g:buffet_use_devicons = 0
 let g:buffet_powerline_separators = 0
-"let g:buffet_tab_icon = "\uf00a"
-"let g:buffet_left_trunc_icon = "\uf0a8"
-"let g:buffet_right_trunc_icon = "\uf0a9"
+let g:buffet_tab_icon = "\uf00a"
+let g:buffet_left_trunc_icon = "\uf0a8"
+let g:buffet_right_trunc_icon = "\uf0a9"
 
 " ------------------ deoplete -----------------------
 let g:deoplete#enable_at_startup = 1
