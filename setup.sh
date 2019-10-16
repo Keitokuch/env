@@ -6,7 +6,11 @@ TMP=~/.tmux/plugins
 # get zsh
 if ! [ -x "$(command -v zsh)" ]; then
 	sudo apt install zsh
-	chsh -s $(which zsh) 
+    if [[ -x "/bin/zsh" ]]; then
+        chsh -s "/bin/zsh"
+    else 
+        chsh -s $(which zsh) 
+    fi
     echo ">>> installed zsh <<<"
 else
     echo "=== zsh already installed ==="

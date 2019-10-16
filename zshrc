@@ -108,11 +108,9 @@ export LA="149.248.12.171"
 #
 # Example aliases
 alias py="python3"
-if [ -x "$(command -v nvim)" ]; then
-    alias vi="nvim"
-fi 
-
+if [ -x "$(command -v nvim)" ]; then alias vi="nvim"; fi 
 alias ra="ranger" 
+alias t="tmux"
 
 # xterm color demo
 function spectrum_ls() {
