@@ -119,7 +119,6 @@ function spectrum_ls() {
   done
 }
 
-# . /Users/JoshuaD/Library/Python/3.6/lib/python/site-packages/powerline/bindings/zsh/powerline.zsh
 
 precmd() {
 	if [ -n "$TMUX" ]; then
