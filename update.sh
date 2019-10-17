@@ -1,4 +1,4 @@
-#! /bin/sh
+#! /usr/bin/env zsh 
 OMZ=~/.oh-my-zsh
 
 zshrc() {
@@ -7,7 +7,7 @@ zshrc() {
 	else
 		cp ./zshrc ~/.zshrc
 	fi
-	zsh ~/.zshrc
+	source ~/.zshrc
     echo ".zshrc updated"
 
 }
@@ -47,7 +47,7 @@ tm() {
 
 zshTheme() {
 	cp ./keitoku.zsh-theme $OMZ/themes/keitoku.zsh-theme
-	zsh ~/.zshrc
+	source ~/.zshrc
     echo "zsh-theme updated"
 }
 

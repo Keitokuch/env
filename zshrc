@@ -112,6 +112,17 @@ if [ -x "$(command -v nvim)" ]; then alias vi="nvim"; fi
 alias ra="ranger" 
 alias t="tmux"
 
+# set terminal proxy
+function setproxy() {
+    export http_proxy=$1
+    export https_proxy=$http_proxy
+}
+
+function noproxy() {
+    unset http_proxy https_proxy
+}
+
+
 # xterm color demo
 function spectrum_ls() {
   for code in {000..255}; do
