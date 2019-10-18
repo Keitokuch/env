@@ -290,7 +290,7 @@ let g:gutentags_ctags_tagfile = '.tags'
 " ---------------------------------------- Leaderf ---------------------------------------------
 let g:Lf_ShowRelativePath = -1
 let g:Lf_HideHelp = 1
-map <leader>r :LeaderfFunction!<cr>
+map <leader>r :LeaderfFunction<cr>
 map <leader>o :LeaderfFile<cr>
 let g:Lf_NormalMap = {
 	\ "File":   [["<leader>o", ':exec g:Lf_py "fileExplManager.quit()"<CR>']],
@@ -303,7 +303,7 @@ let g:Lf_NormalMap = {
 let g:Lf_CommandMap = { '<C-j>' : ['<M-j>', '<Down>'], '<C-k>' : ['<M-k>', '<Up>'] }
 
 " ------------------------------ ctrlsf ----------------------------
-nmap     <C-f> <Plug>CtrlSFPrompt
+nmap     <C-f> <Plug>CtrlSFVwordPath
 vmap     <C-f> <Plug>CtrlSFVwordPath
 nnoremap <leader>f :CtrlSFToggle<CR>
 
