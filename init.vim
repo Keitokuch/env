@@ -58,8 +58,8 @@ let mapleader=" "
 inoremap jj <ESC>
 map q <ESC>
 nnoremap Q q
-nnoremap <C-i> 10k
-nnoremap <C-d> 10j
+map <C-i> 10k
+map <C-d> 10j
 
 "" Split
 map s <nop>

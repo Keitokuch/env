@@ -1,11 +1,11 @@
-#! /bin/bash
+#! /usr/bin/env bash 
 
 OMZ=~/.oh-my-zsh
 TMP=~/.tmux/plugins
 
 # get zsh
-if ! [ -x "$(command -v zsh)" ]; then
-	sudo apt install zsh
+if ! [[ -x $(command -v zsh) ]]; then
+	sudo yum install zsh
     if [[ -x "/bin/zsh" ]]; then
         chsh -s "/bin/zsh"
     else 
@@ -16,10 +16,9 @@ else
     echo "=== zsh already installed ==="
 fi 
 
-
 # get tmux
 if ! [[ -x $(command -v tmux) ]]; then
-	sudo apt install tmux 
+	sudo yum install tmux 
     echo ">>> installed tmux <<<"
 else
     echo "=== tmux already installed ==="
@@ -27,7 +26,7 @@ fi
 
 # get curl
 if ! [[ -x $(command -v curl) ]]; then
-	sudo apt install curl 
+	sudo yum install curl 
     echo ">>> installed curl <<<"
 else
     echo "=== curl already installed ==="
@@ -36,14 +35,14 @@ fi
 # install nodejs for coc.nvim
 #curl -sL install-node.now.sh/lts | bash
 if ! [[ -x $(command -v nodejs) ]]; then
-    sudo apt install -y nodejs
+    sudo curl -sL https://rpm.nodesource.com/setup_12.x | bash -
     echo ">>> installed nodejs <<<"
 else 
     echo "=== nodejs already installed ==="
 fi 
 
 if ! [[ -x $(command -v nvim) ]]; then
-    sudo apt install neovim 
+    sudo yum install neovim 
     echo ">>> installed neovim"
 else 
     echo "=== neovim already installed ==="
@@ -71,7 +70,7 @@ fi
 # get tpm
 if [[ ! -d "$TMP/tpm" ]]; then
 	git clone https://github.com/tmux-plugins/tpm.git ~/.tmux/plugins/tpm
-fi 
+fi
 
 # deploy configs
 echo ">>> setting zsh configs"
@@ -96,4 +95,3 @@ mkdir -p ~/.config/nvim/colors/
 cp ./vim-keitoku.vim ~/.vim/colors/ 
 cp ./vim-keitoku.vim ~/.config/nvim/colors/
 
-#sudo snap install universal-ctags
