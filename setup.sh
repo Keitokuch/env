@@ -35,7 +35,7 @@ fi
 
 # install nodejs for coc.nvim
 #curl -sL install-node.now.sh/lts | bash
-if ! [[ -x $(command -v nodejs) ]]; then
+if ! [[ -x $(command -v node) ]]; then
     sudo apt install -y nodejs
     echo ">>> installed nodejs <<<"
 else 
