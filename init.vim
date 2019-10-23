@@ -171,9 +171,9 @@ Plug 'Shougo/neosnippet-snippets'
 call plug#end()
 
 " Automatically install missing plugins on startup
-"if !empty(filter(copy(g:plugs), '!isdirectory(v:val.dir)'))
-"  autocmd VimEnter * PlugInstall
-"endif
+if !empty(filter(copy(g:plugs), '!isdirectory(v:val.dir)'))
+    PlugInstall -sync
+endif
 
 " ====================== Plugin Configs ==========================
 
