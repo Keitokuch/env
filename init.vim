@@ -172,7 +172,7 @@ call plug#end()
 
 " Automatically install missing plugins on startup
 if !empty(filter(copy(g:plugs), '!isdirectory(v:val.dir)'))
-    PlugInstall -sync
+    PlugInstall
 endif
 
 " ====================== Plugin Configs ==========================
