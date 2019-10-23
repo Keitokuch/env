@@ -48,13 +48,6 @@ else
     echo "=== neovim already installed ==="
 fi
 
-# get oh-my-zsh
-if [[ ! -d $OMZ ]]; then
-	sh -c "$(wget https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh -O -)"
-    echo ">>> installed oh-my-zsh <<<"
-else
-    echo "=== oh-my-zsh already installed ==="
-fi
 
 # Vim plug       
 if [[ ! -f  ~/.local/share/nvim/site/autoload/plug.vim ]]; then 
@@ -94,4 +87,12 @@ mkdir -p ~/.vim/colors/
 mkdir -p ~/.config/nvim/colors/
 cp ./vim-keitoku.vim ~/.vim/colors/ 
 cp ./vim-keitoku.vim ~/.config/nvim/colors/
+
+# get oh-my-zsh
+if [[ ! -d $OMZ ]]; then
+	sh -c "$(wget https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh -O -)"
+    echo ">>> installed oh-my-zsh <<<"
+else
+    echo "=== oh-my-zsh already installed ==="
+fi
 
