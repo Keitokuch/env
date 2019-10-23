@@ -128,10 +128,9 @@ Plug 'majutsushi/tagbar'
 
 call plug#end() 
 
-autocmd VimEnter *
-  \  if !empty(filter(copy(g:plugs), '!isdirectory(v:val.dir)'))
-  \|   PlugInstall | q
-  \| endif
+if !empty(filter(copy(g:plugs), '!isdirectory(v:val.dir)'))
+    PlugInstall -sync
+endif
 
 " ====================== Plugin Configs ==========================
 
