@@ -1,26 +1,12 @@
 #! /usr/bin/env bash 
 
-if [[ "$OSTYPE" == "linux-gnu" ]]; then
-    if [ -f /etc/os-release ]; then
-        . /etc/os-release
-        OS=$ID
-        VER=$VERSION_ID
-        if [[ $OS == "centos" ]]; then
-            . ./setup_centos.sh
-        elif [[ $OS == "ubuntu" ]]; then
-            echo "TODO: ubuntu script"
-        else
-            echo "Failed: linux distro $OS not supported."
-        fi
-    else
-        echo "Failed: linux distro not recognized."
-    fi
-elif [[ "$OSTYPE" == "darwin"* ]]; then
-    echo "TODO: macos script"
-else
-    echo "Failed: OS type $OSTYPE not supported."
-fi
+ENV="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
+SETUP=$ENV/setup
+. $SETUP/setup_generic.sh
 
+
+PY_VERSION=3.7.4
+TMUX_VERSION=2.9a
 
 get_curl
 get_zsh

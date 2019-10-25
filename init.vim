@@ -60,6 +60,7 @@ map q <ESC>
 nnoremap Q q
 map <C-i> 10k
 map <C-d> 10j
+nnoremap Y :%y<CR>
 
 "" Split
 map s <nop>
@@ -153,7 +154,7 @@ Plug 'python-mode/python-mode', { 'for': 'python', 'branch': 'develop' }
 Plug 'Yggdroot/LeaderF', { 'do': './install.sh' }
 Plug 'majutsushi/tagbar', { 'on': ['TagbarToggle', 'TagbarOpen', 'TagbarShowTag'] }
 Plug 'ludovicchabant/vim-gutentags'
-Plug 'kingtaku/vterm'
+Plug 'keitoku-c/vterm'
 Plug 'mg979/vim-visual-multi'
 Plug 'dyng/ctrlsf.vim'
 Plug 'lervag/vimtex', { 'for': 'tex' }
