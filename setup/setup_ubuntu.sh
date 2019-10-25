@@ -72,26 +72,11 @@ get_python3() {
     fi
 }
 
-# deploy configs
-deploy_configs() {
+deploy_zsh() {
     MSG+=(">>> deploying zsh configs")
     sudo cp $ENV/keitoku.zsh-theme $OMZ/themes/keitoku.zsh-theme
     cp $ENV/zshrc ~/.zshrc
-
-    MSG+=(">>> deploying tmux configs")
-    tic $ENV/utils/xterm-256color-italic.terminfo 
-    cp $ENV/tmux.conf ~/.tmux.conf 
-
-    mkdir -p ~/.config/nvim/
-    MSG+=(">>> deploying vim configs")
-    cp $ENV/vimrc ~/.vimrc
-    cp $ENV/init.vim ~/.config/nvim/init.vim 
-
-    # vim colorscheme
-    mkdir -p ~/.vim/colors/ 
-    mkdir -p ~/.config/nvim/colors/
-    cp $ENV/vim-keitoku.vim ~/.vim/colors/ 
-    cp $ENV/vim-keitoku.vim ~/.config/nvim/colors/
+    cp $ENV/zshrc.ubuntu ~/.zshrc.native
 }
 
 get_kbuild() {
@@ -101,3 +86,11 @@ get_kbuild() {
     MSG+=(">>> installed kernel build dependencies.")
 }
 
+get_ranger() {
+    if ! [[ -x $(command -v ranger) ]]; then
+        sudo apt install ranger
+        MSG+=(">>> installed ranger <<<")
+    else
+        MSG+=('=== ranger already installed ===')
+    fi
+}

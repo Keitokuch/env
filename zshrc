@@ -5,15 +5,15 @@ export PATH=$HOME/bin:/usr/local/bin:$PATH
 # Path to your oh-my-zsh installation.
 export ZSH=$HOME/.oh-my-zsh
 
+if [[ -f ~/.zshrc.native ]]; then
+    . ~/.zshrc.native
+fi
+
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
 # ZSH_THEME="robbyrussell"
-# ZSH_THEME="amuse"
-# ZSH_THEME="clean"
-# ZSH_THEME="apple"
-# ZSH_THEME="ys"
 ZSH_THEME="keitoku"
 
 # Set list of themes to pick from when loading at random
@@ -85,6 +85,7 @@ autoload -U compinit && compinit -u
 # export MANPATH="/usr/local/man:$MANPATH"
 export TOKYO="172.105.193.103"
 export LA="149.248.12.171"
+export CN="47.101.141.97"
 # You may need to manually set your language environment
 # export LANG=en_US.UTF-8
 

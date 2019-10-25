@@ -28,18 +28,22 @@ get_vimplug() {
     fi 
 }
 
-# deploy configs
-deploy_configs() {
+
+deploy_zsh() {
     MSG+=(">>> deploying zsh configs")
     cp $ENV/keitoku.zsh-theme $OMZ/themes/keitoku.zsh-theme
     cp $ENV/zshrc ~/.zshrc
+}
 
+deploy_tmux() {
     MSG+=(">>> deploying tmux configs")
     tic $ENV/utils/xterm-256color-italic.terminfo 
     cp $ENV/tmux.conf ~/.tmux.conf 
+}
 
-    mkdir -p ~/.config/nvim/
+deploy_vim() {
     MSG+=(">>> deploying vim configs")
+    mkdir -p ~/.config/nvim/
     cp $ENV/vimrc ~/.vimrc
     cp $ENV/init.vim ~/.config/nvim/init.vim 
 
@@ -50,6 +54,12 @@ deploy_configs() {
     cp $ENV/vim-keitoku.vim ~/.config/nvim/colors/
 }
 
+deploy_configs() {
+    deploy_zsh
+    deploy_tmux
+    deploy_vim
+}
+
 # print log
 put_msg() {
     for msg in "${MSG[@]}"; do
@@ -57,23 +67,30 @@ put_msg() {
     done
 }
 
+
+get_invalid() {
+    echo "$1: setup for $OS not implemented."
+}
 get_curl() {
-    echo "get_curl: setup for $OS not implemented."
+    get_invalid ${FUNCNAME[0]}
 }
 get_zsh() {
-    echo "get_zsh: setup for $OS not implemented."
+    get_invalid ${FUNCNAME[0]}
 }
 get_nvim() {
-    echo "get_nvim: setup for $OS not implemented."
+    get_invalid ${FUNCNAME[0]}
 }
 get_nodejs() {
-    echo "get_nodejs: setup for $OS not implemented."
+    get_invalid ${FUNCNAME[0]}
 }
 get_tmux() {
-    echo "get_tmux: setup for $OS not implemented."
+    get_invalid ${FUNCNAME[0]}
 }
 get_python3() {
-    echo "get_python3: setup for $OS not implemented."
+    get_invalid ${FUNCNAME[0]}
+}
+get_ranger() {
+    get_invalid ${FUNCNAME[0]}
 }
 
 
@@ -100,5 +117,4 @@ else
     echo "Failed: OS type $OSTYPE not supported."
     exit 1
 fi
-
 
