@@ -1,6 +1,6 @@
 #! /usr/bin/env bash 
 
-OS=ubuntu
+OS=Ubuntu
 
 
 get_tmux() {
@@ -92,5 +92,12 @@ deploy_configs() {
     mkdir -p ~/.config/nvim/colors/
     cp $ENV/vim-keitoku.vim ~/.vim/colors/ 
     cp $ENV/vim-keitoku.vim ~/.config/nvim/colors/
+}
+
+get_kbuild() {
+    sudo apt install build-essential kernel-package libncurses5-dev
+    apt install flex bison
+    apt install openssl libssl-dev libelf-dev
+    MSG+=(">>> installed kernel build dependencies.")
 }
 

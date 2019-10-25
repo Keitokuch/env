@@ -154,7 +154,7 @@ Plug 'python-mode/python-mode', { 'for': 'python', 'branch': 'develop' }
 Plug 'Yggdroot/LeaderF', { 'do': './install.sh' }
 Plug 'majutsushi/tagbar', { 'on': ['TagbarToggle', 'TagbarOpen', 'TagbarShowTag'] }
 Plug 'ludovicchabant/vim-gutentags'
-Plug 'keitoku-c/vterm'
+Plug 'kingtaku/vterm'
 Plug 'mg979/vim-visual-multi'
 Plug 'dyng/ctrlsf.vim'
 Plug 'lervag/vimtex', { 'for': 'tex' }
@@ -347,6 +347,9 @@ augroup end
 let g:UltiSnipsExpandTrigger = 'C-;'
 let g:UltiSnipsJumpForwardTrigger = '<tab>'
 let g:UltiSnipsJumpBackwardTrigger = '<S-tab>'
+
+" ------------------------- vterm -----------------------------
+let g:vterm_win_height = 20
 
 " ----------------------- cpp-enhanced-highlight ------------------------
 let g:cpp_class_scope_highlight = 1

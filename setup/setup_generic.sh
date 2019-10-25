@@ -58,22 +58,22 @@ put_msg() {
 }
 
 get_curl() {
-    echo "get_curl: OS specific install not implemented."
+    echo "get_curl: setup for $OS not implemented."
 }
 get_zsh() {
-    echo "get_zsh: OS specific install not implemented."
+    echo "get_zsh: setup for $OS not implemented."
 }
 get_nvim() {
-    echo "get_nvim: OS specific install not implemented."
+    echo "get_nvim: setup for $OS not implemented."
 }
 get_nodejs() {
-    echo "get_nodejs: OS specific install not implemented."
+    echo "get_nodejs: setup for $OS not implemented."
 }
 get_tmux() {
-    echo "get_tmux: OS specific install not implemented."
+    echo "get_tmux: setup for $OS not implemented."
 }
 get_python3() {
-    echo "get_python3: OS specific install not implemented."
+    echo "get_python3: setup for $OS not implemented."
 }
 
 

@@ -1,6 +1,6 @@
 #! /usr/bin/env bash 
 
-OS=macos
+OS="macOS"
 
 
 get_zsh() {

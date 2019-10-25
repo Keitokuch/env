@@ -1,6 +1,6 @@
 #! /usr/bin/env bash 
 
-OS=centos
+OS=CentOS
 
 
 get_python3() {
