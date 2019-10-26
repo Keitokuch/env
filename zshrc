@@ -86,6 +86,8 @@ autoload -U compinit && compinit -u
 export TOKYO="172.105.193.103"
 export LA="149.248.12.171"
 export CN="47.101.141.97"
+export cs411="fa19-cs411-050.cs.illinois.edu"
+
 # You may need to manually set your language environment
 # export LANG=en_US.UTF-8
 

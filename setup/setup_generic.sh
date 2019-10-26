@@ -5,26 +5,51 @@ TMP=~/.tmux/plugins
 
 declare -a MSG=()
 
+parse_options() {
+    #for var in "$@"
+    #do
+    #    [[ $var == f ]] && forced=1
+    #    [[ $var == s ]] && silent=1
+    #    [[ $var == v ]] && ver=1
+    #    [[ $ver ]] && VERSION=$var
+    #done
+    unset silent forced VERSION
+    while getopts ":fsv:" opt; do
+        case $opt in
+            f)
+                forced=1
+                ;;
+            s)
+                silent=1
+                ;;
+            v)
+                VERSION=$OPTARG
+                ;; 
+        esac 
+    done
+}
 
 # get oh-my-zsh
 get_OMZ() {
+    parse_options $@
     if [[ ! -d $OMZ ]]; then
         sh -c "$(wget https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh -O -) --unattended" 
-        MSG+=(">>> installed oh-my-zsh <<<")
+       [[ $silent ]] ||  MSG+=(">>> installed oh-my-zsh <<<")
     else
-        MSG+=("=== oh-my-zsh already installed ===")
+       [[ $silent ]] || MSG+=("=== oh-my-zsh already installed ===")
     fi
 }
 
 get_vimplug() {
+    parse_options $@
     if [[ ! -f  ~/.local/share/nvim/site/autoload/plug.vim ]]; then 
-        MSG+=(">>> installing vim-plug <<<")
+        [[ $silent ]] || MSG+=(">>> installing vim-plug <<<")
         curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
             https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
         curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
             https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
     else
-        MSG+=("=== vim-plug already installed ===")
+        [[ $silent ]] || MSG+=("=== vim-plug already installed ===")
     fi 
 }
 

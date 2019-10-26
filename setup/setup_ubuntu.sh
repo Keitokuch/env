@@ -4,7 +4,8 @@ OS=Ubuntu
 
 
 get_tmux() {
-    if [[ ! -x $(command -v tmux) ]] ; then
+    parse_options $@
+    if [[ $forced ]] || [[ ! -x $(command -v tmux) ]] ; then
         sudo apt install libevent-dev
         sudo apt install libncurses-dev
         wget https://github.com/tmux/tmux/releases/download/${TMUX_VERSION}/tmux-${TMUX_VERSION}.tar.gz
@@ -14,9 +15,9 @@ get_tmux() {
         sudo make install
         cd $ENV && rm -rf tmux-${TMUX_VERSION}
         rm tmux-${TMUX_VERSION}.tar.gz
-        MSG+=(">>> installed tmux <<<")
+        [[ $silent ]] || MSG+=(">>> installed tmux <<<")
     else
-        MSG+=("=== tmux already installed ===")
+        [[ $silent ]] || MSG+=("=== tmux already installed ===")
     fi 
     # get tpm
     if [[ ! -d "$TMP/tpm" ]]; then
@@ -26,49 +27,53 @@ get_tmux() {
 
 
 get_zsh() {
-    if ! [[ -x $(command -v zsh) ]]; then
+    parse_options $@
+    if [[ $forced ]] || ! [[ -x $(command -v zsh) ]]; then
         sudo apt install zsh
         if [[ -x "/bin/zsh" ]]; then
             chsh -s "/bin/zsh"
         else 
             chsh -s $(which zsh) 
         fi
-        MSG+=(">>> installed zsh <<<")
+        [[ $silent ]] || MSG+=(">>> installed zsh <<<")
     else
-        MSG+=("=== zsh already installed ===")
+        [[ $silent ]] || MSG+=("=== zsh already installed ===")
     fi 
 }
 
 
 get_nvim() {
-    if ! [[ -x $(command -v nvim) ]]; then
+    parse_options $@
+    if [[ $forced ]] || ! [[ -x $(command -v nvim) ]]; then
         sudo apt install neovim
         sudo apt install python-neovim
         sudo apt install python3-neovim
-        MSG+=(">>> installed neovim <<<")
+        [[ $silent ]] || MSG+=(">>> installed neovim <<<")
     else 
-        MSG+=("=== neovim already installed ===")
+        [[ $silent ]] || MSG+=("=== neovim already installed ===")
     fi
 }
 
 
 get_nodejs() {
-    if ! [[ -x $(command -v node) ]]; then
+    parse_options $@
+    if [[ $forced ]] || ! [[ -x $(command -v node) ]]; then
         sudo apt install -y nodejs
-        MSG+=(">>> installed nodejs <<<")
+        [[ $silent ]] || MSG+=(">>> installed nodejs <<<")
     else 
-        MSG+=("=== nodejs already installed ===")
+        [[ $silent ]] || MSG+=("=== nodejs already installed ===")
     fi 
 }
 
 
 get_python3() {
-    if ! [[ -x $(command -v python3) ]]; then
+    parse_options $@
+    if [[ $forced ]] || ! [[ -x $(command -v python3) ]]; then
         sudo apt install python3
         sudo apt install python3-pip
-        MSG+=(">>> installed python3 <<<")
+        [[ $silent ]] || MSG+=(">>> installed python3 <<<")
     else
-        MSG+=('=== python3 already installed ===')
+        [[ $silent ]] || MSG+=('=== python3 already installed ===')
     fi
 }
 
@@ -87,10 +92,11 @@ get_kbuild() {
 }
 
 get_ranger() {
-    if ! [[ -x $(command -v ranger) ]]; then
+    parse_options $@
+    if [[ $forced ]] || [[ ! -x $(command -v ranger) ]]; then
         sudo apt install ranger
-        MSG+=(">>> installed ranger <<<")
+        [[ $silent ]] || MSG+=(">>> installed ranger <<<")
     else
-        MSG+=('=== ranger already installed ===')
+        [[ $silent ]] || MSG+=('=== ranger already installed ===')
     fi
 }

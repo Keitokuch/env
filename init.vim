@@ -61,6 +61,7 @@ nnoremap Q q
 map <C-i> 10k
 map <C-d> 10j
 nnoremap Y :%y<CR>
+command Sudow w !sudo dd of=%
 
 "" Split
 map s <nop>

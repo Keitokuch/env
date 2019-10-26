@@ -4,39 +4,45 @@ OS=CentOS
 
 
 get_python3() {
-    if ! [[ -x $(command -v python3) ]]; then
+    VERSION=$PY_VERSION
+    parse_options $@
+
+    if [[ $forced ]] || [[ ! -x $(command -v python3) ]]; then
         sudo yum install yum-utils
-        sudo yum-builddep python
-        curl -O https://www.python.org/ftp/python/${PY_VERSION}/Python-${PY_VERSION}.tar.xz
-        tar xf Python-${PY_VERSION}.tar.xz
-        cd Python-${PY_VERSION}
+        sudo yum-builddep python3
+        sudo yum -y install zlib-devel bzip2-devel openssl-devel ncurses-devel sqlite-devel readline-devel tk-devel gdbm-devel db4-devel libpcap-devel xz-devel gcc libffi-devel gcc make automake autoconf libtool libffi-devel
+        curl -O https://www.python.org/ftp/python/${VERSION}/Python-${VERSION}.tar.xz
+        tar xf Python-${VERSION}.tar.xz
+        cd Python-${VERSION}
         ./configure && make
         sudo make install
         cd $ENV
-        rm -rf Python-${PY_VERSION}
-        rm Python-${PY_VERSION}.tar.xz
-        sudo yum install python3-pip
-        MSG+=(">>> installed python3 <<<")
+        sudo rm -rf Python-${VERSION}
+        rm Python-${VERSION}.tar.xz
+        [[ $silent ]] || MSG+=(">>> installed python3 <<<")
     else
-        MSG+=('=== python3 already installed ===')
+        [[ $silent ]] || MSG+=('=== python3 already installed ===')
     fi
 }
 
 
 get_tmux() {
-    if [[ ! -x $(command -v tmux) ]] ; then
+    VERSION=$TMUX_VERSION
+    parse_options $@
+
+    if [[ $forced ]] || [[ ! -x $(command -v tmux) ]] ; then
         sudo yum install libevent-devel
         sudo yum install ncurses-devel
-        wget https://github.com/tmux/tmux/releases/download/${TMUX_VERSION}/tmux-${TMUX_VERSION}.tar.gz
-        tar -xvf tmux-${TMUX_VERSION}.tar.gz
-        cd tmux-${TMUX_VERSION}
+        wget https://github.com/tmux/tmux/releases/download/${VERSION}/tmux-${VERSION}.tar.gz
+        tar -xvf tmux-${VERSION}.tar.gz
+        cd tmux-${VERSION}
         ./configure && make
         sudo make install
-        cd $ENV && rm -rf tmux-${TMUX_VERSION}
-        rm tmux-${TMUX_VERSION}.tar.gz
-        MSG+=(">>> installed tmux <<<")
+        cd $ENV && rm -rf tmux-${VERSION}
+        rm tmux-${VERSION}.tar.gz
+        [[ $silent ]] || MSG+=(">>> installed tmux <<<")
     else
-        MSG+=("=== tmux already installed ===")
+        [[ $silent ]] || MSG+=("=== tmux already installed ===")
     fi 
     # get tpm
     if [[ ! -d "$TMP/tpm" ]]; then
@@ -46,88 +52,53 @@ get_tmux() {
 
 
 get_nvim() {
-    if ! [[ -x $(command -v nvim) ]]; then
+    parse_options $@
+    if [[ $forced ]] || [[ ! -x $(command -v nvim) ]]; then
         sudo yum install -y https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
+        get_python3 -s
         sudo yum install -y neovim python3-neovim
-        MSG+=(">>> installed neovim <<<")
+        pip3 install neovim
+        [[ $silent ]] || MSG+=(">>> installed neovim <<<")
     else 
-        MSG+=("=== neovim already installed ===")
+        [[ $silent ]] || MSG+=("=== neovim already installed ===")
     fi
 }
 
 
 get_nodejs() {
-    if ! [[ -x $(command -v node) ]]; then
+    parse_options $@
+    if [[ $forced ]] || ! [[ -x $(command -v node) ]]; then
         yum install -y gcc-c++ make
         curl -sL https://rpm.nodesource.com/setup_12.x | sudo -E bash -
-        MSG+=(">>> installed nodejs <<<")
+        [[ $silent ]] || MSG+=(">>> installed nodejs <<<")
     else 
-        MSG+=("=== nodejs already installed ===")
+        [[ $silent ]] || MSG+=("=== nodejs already installed ===")
     fi 
 }
 
 
 get_zsh() {
-    if ! [[ -x $(command -v zsh) ]]; then
+    parse_options $@
+    if [[ $forced ]] || ! [[ -x $(command -v zsh) ]]; then
         sudo yum install zsh
         if [[ -x "/bin/zsh" ]]; then
             chsh -s "/bin/zsh"
         else 
             chsh -s $(which zsh) 
         fi
-        MSG+=(">>> installed zsh <<<")
+        [[ $silent ]] || MSG+=(">>> installed zsh <<<")
     else
-        MSG+=("=== zsh already installed ===")
+        [[ $silent ]] || MSG+=("=== zsh already installed ===")
     fi 
 }
 
 
 get_curl() {
-    if ! [[ -x $(command -v curl) ]]; then
+    parse_options $@
+    if [[ $forced ]] || ! [[ -x $(command -v curl) ]]; then
         sudo yum install curl 
-        MSG+=(">>> installed curl <<<")
+        [[ $silent ]] || MSG+=(">>> installed curl <<<")
     else
-        MSG+=("=== curl already installed ===")
+        [[ $silent ]] || MSG+=("=== curl already installed ===")
     fi 
-}
-
-
-# deploy configs
-deploy_configs() {
-    MSG+=(">>> deploying zsh configs")
-    cp ./keitoku.zsh-theme $OMZ/themes/keitoku.zsh-theme
-    cp ./zshrc ~/.zshrc
-
-    MSG+=(">>> deploying tmux configs")
-    tic ./utils/xterm-256color-italic.terminfo 
-    cp ./tmux.conf ~/.tmux.conf 
-
-    mkdir -p ~/.config/nvim/
-    MSG+=(">>> deploying vim configs")
-    cp ./vimrc ~/.vimrc
-    cp ./init.vim ~/.config/nvim/init.vim 
-
-    # vim colorscheme
-    mkdir -p ~/.vim/colors/ 
-    mkdir -p ~/.config/nvim/colors/
-    cp ./vim-keitoku.vim ~/.vim/colors/ 
-    cp ./vim-keitoku.vim ~/.config/nvim/colors/
-}
-
-
-# get oh-my-zsh
-get_OMZ() {
-    if [[ ! -d $OMZ ]]; then
-        sh -c "$(wget https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh -O -) --unattended" 
-        MSG+=(">>> installed oh-my-zsh <<<")
-    else
-        MSG+=("=== oh-my-zsh already installed ===")
-    fi
-}
-
-# print log
-put_msg() {
-    for msg in "${MSG[@]}"; do
-        echo $msg
-    done
 }
