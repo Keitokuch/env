@@ -109,6 +109,8 @@ inoremap <C-e> <ESC>$a
 inoremap <C-a> <ESC>I
 inoremap <C-f> <right>
 inoremap <C-b> <left>
+inoremap <C-p> <up>
+inoremap <C-n> <down>
 
 "" Terminal mode 
 tnoremap jk <C-\><C-n>
