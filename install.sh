@@ -2,6 +2,7 @@
 
 ENV="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 SETUP=$ENV/setup
+SRC=$ENV/src
 . $SETUP/setup_generic.sh
 
 
@@ -16,6 +17,7 @@ get_nvim
 get_vimplug
 get_nodejs
 get_OMZ
+get_ctags
 
 deploy_configs
 

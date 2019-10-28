@@ -1,1 +1,5 @@
 .*/.gitignore
+*~
+.Session.vim
+.tags
+src/

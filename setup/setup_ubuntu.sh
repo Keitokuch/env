@@ -100,3 +100,23 @@ get_ranger() {
         [[ $silent ]] || MSG+=('=== ranger already installed ===')
     fi
 }
+
+get_ctags() {
+    parse_options $@
+    if [[ $forced ]] || [[ ! -x $(command -v ctags) ]]; then
+        src=$SRC/ctags
+        sudo apt install \
+            gcc make pkg-config autoconf automake \
+            python3-docutils libseccomp-dev libjansson-dev \
+            libyaml-dev libxml2-dev
+        git clone https://github.com/universal-ctags/ctags.git $src
+        cd $src
+        ./autogen.sh
+        ./configure && make
+        sudo make install
+        cd $ENV
+        [[ $silent ]] || MSG+=(">>> installed ctags <<<")
+    else
+        [[ $silent ]] || MSG+=('=== ctags already installed ===')
+    fi
+}

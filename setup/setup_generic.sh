@@ -117,6 +117,9 @@ get_python3() {
 get_ranger() {
     get_invalid ${FUNCNAME[0]}
 }
+get_ctags() {
+    get_invalid ${FUNCNAME[0]}
+}
 
 
 if [[ "$OSTYPE" == "linux-gnu" ]]; then
