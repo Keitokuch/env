@@ -58,7 +58,7 @@ get_nvim() {
 get_nodejs() {
     parse_options $@
     if [[ $forced ]] || ! [[ -x $(command -v node) ]]; then
-        sudo apt install -y nodejs
+        curl -sL install-node.now.sh/lts | sudo bash
         [[ $silent ]] || MSG+=(">>> installed nodejs <<<")
     else 
         [[ $silent ]] || MSG+=("=== nodejs already installed ===")
