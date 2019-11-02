@@ -107,15 +107,16 @@ nnoremap <C-u> <C-i>
 nnoremap <C-y> <C-t>
 
 "" Insert mode
-inoremap <C-e> <ESC>$a
+inoremap <silent><expr> <C-e> pumvisible()? "\<C-e>" : "\<ESC>A"
 inoremap <C-a> <ESC>I
 inoremap <C-f> <right>
 inoremap <C-b> <left>
-inoremap <C-p> <up>
-inoremap <C-n> <down>
+inoremap <silent><expr> <C-p> pumvisible()? "\<C-p>" : "\<up>"
+inoremap <silent><expr> <C-n> pumvisible()? "\<C-n>" : "\<down>"
+
 
 "" Terminal mode 
-tnoremap jk <C-\><C-n>
+tnoremap qq <C-\><C-n>
 
 " Minimal auto closing
 inoremap ( ()<left>
@@ -236,8 +237,8 @@ map n <Plug>InterestingWordsForeward
 map N <Plug>InterestingWordsBackward
 
 "" ------------------------------------ coc.nvim -------------------------------------------
-" coc-python, coc-json, coc-pairs, coc-vimtex, coc-ultisnips, coc-html,
-" coc-neosnippet, coc-java
+" coc-python, coc-json, coc-pairs, coc-vimtex, coc-html,
+" coc-neosnippet, coc-java, coc-snippets
 function! s:check_back_space() abort
   let col = col('.') - 1
   return !col || getline('.')[col - 1]  =~ '\s'
@@ -261,8 +262,7 @@ inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 inoremap <silent><expr> <TAB>
       \ pumvisible() ? "\<C-n>":
       \ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
-      \ <SID>check_back_space() ? "\<TAB>" :
-      \ coc#refresh()
+      \ "\<TAB>"
 
 " use <cr> to confirm completion
 inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
@@ -280,7 +280,8 @@ nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
 
-let g:coc_snippet_next = '<TAB>'
+let g:coc_snippet_next = '<tab>'
+let g:coc_snippet_prev = '<S-tab>'
 
 " --------------------- neosnippet ------------------------
 "
