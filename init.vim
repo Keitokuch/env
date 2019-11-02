@@ -79,6 +79,8 @@ map <S-C-up> :resize +5<CR>
 map <S-C-down> :resize -5<CR>
 map <S-C-left> :vertical resize-5<CR>
 map <S-C-right> :vertical resize+5<CR>
+map <leader><C-w> :q<CR>
+map <leader>W :q<CR>
 
 map <M-up> :resize +5<CR>
 map <M-down> :resize -5<CR>
@@ -157,11 +159,11 @@ Plug 'python-mode/python-mode', { 'for': 'python', 'branch': 'develop' }
 Plug 'Yggdroot/LeaderF', { 'do': './install.sh' }
 Plug 'majutsushi/tagbar', { 'on': ['TagbarToggle', 'TagbarOpen', 'TagbarShowTag'] }
 Plug 'ludovicchabant/vim-gutentags'
-Plug 'kingtaku/vterm'
+Plug 'keitokuch/vterm'
 Plug 'mg979/vim-visual-multi'
 Plug 'dyng/ctrlsf.vim'
 Plug 'lervag/vimtex', { 'for': 'tex' }
-Plug 'sirver/ultisnips'
+"Plug 'sirver/ultisnips'
 Plug 'honza/vim-snippets'
 Plug 'octol/vim-cpp-enhanced-highlight', { 'for': ['c', 'cpp', 'cuda'] }
 Plug 'vim-scripts/TagHighlight'
@@ -175,9 +177,10 @@ Plug 'Shougo/neosnippet-snippets'
 call plug#end()
 
 " Automatically install missing plugins on startup
-if !empty(filter(copy(g:plugs), '!isdirectory(v:val.dir)'))
-    au VimEnter * PlugInstall | q
-endif
+autocmd VimEnter *
+  \  if len(filter(values(g:plugs), '!isdirectory(v:val.dir)'))
+  \|   PlugInstall --sync | q
+  \| endif
 
 " ====================== Plugin Configs ==========================
 
@@ -222,7 +225,6 @@ let g:airline#extensions#tabline#middle_click_preserves_windows = 1
 let g:airline#extensions#tabline#keymap_ignored_filetypes = ['vimfiler', 'nerdtree', 'terminal', 'tagbar', 'help']
 
 
-
 "" ------------------ vim-gitgutter -------------------
 " unmap conflict leader combo 
 let g:gitgutter_map_keys = 0 
@@ -234,7 +236,8 @@ map n <Plug>InterestingWordsForeward
 map N <Plug>InterestingWordsBackward
 
 "" ------------------------------------ coc.nvim -------------------------------------------
-" coc-python, coc-json, coc-pairs, coc-vimtex, coc-ultisnips, coc-html
+" coc-python, coc-json, coc-pairs, coc-vimtex, coc-ultisnips, coc-html,
+" coc-neosnippet, coc-java
 function! s:check_back_space() abort
   let col = col('.') - 1
   return !col || getline('.')[col - 1]  =~ '\s'
@@ -254,6 +257,13 @@ inoremap <silent><expr> <Tab> pumvisible() ? "\<C-n>" :
       \ coc#refresh()
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 
+" use <tab> to jump in snippets
+inoremap <silent><expr> <TAB>
+      \ pumvisible() ? "\<C-n>":
+      \ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#refresh()
+
 " use <cr> to confirm completion
 inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 " make <cr> select the first completion item and confirm the completion when no item has been selected
@@ -270,7 +280,7 @@ nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
 
-let g:coc_snippet_next = '<tab>'
+let g:coc_snippet_next = '<TAB>'
 
 " --------------------- neosnippet ------------------------
 "
@@ -348,7 +358,7 @@ augroup end
 
 "------------------------- ultisnips -------------------------  
 let g:UltiSnipsExpandTrigger = 'C-;'
-let g:UltiSnipsJumpForwardTrigger = '<tab>'
+let g:UltiSnipsJumpForwardTrigger = 'nn'
 let g:UltiSnipsJumpBackwardTrigger = '<S-tab>'
 
 " ------------------------- vterm -----------------------------
