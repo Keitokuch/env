@@ -44,9 +44,9 @@ get_vimplug() {
     parse_options $@
     if [[ ! -f  ~/.local/share/nvim/site/autoload/plug.vim ]]; then 
         [[ $silent ]] || MSG+=(">>> installing vim-plug <<<")
-        sudo curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
+        curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
             https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-        sudo curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
+        curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
             https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
     else
         [[ $silent ]] || MSG+=("=== vim-plug already installed ===")
@@ -68,13 +68,13 @@ deploy_tmux() {
 
 deploy_vim() {
     MSG+=(">>> deploying vim configs")
-    sudo mkdir -p ~/.config/nvim/
+    mkdir -p ~/.config/nvim/
     sudo cp $ENV/vimrc ~/.vimrc
     sudo cp $ENV/init.vim ~/.config/nvim/init.vim 
 
     # vim colorscheme
-    sudo mkdir -p ~/.vim/colors/ 
-    sudo mkdir -p ~/.config/nvim/colors/
+    mkdir -p ~/.vim/colors/ 
+    mkdir -p ~/.config/nvim/colors/
     sudo cp $ENV/vim-keitoku.vim ~/.vim/colors/ 
     sudo cp $ENV/vim-keitoku.vim ~/.config/nvim/colors/
 }
