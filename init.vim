@@ -391,8 +391,6 @@ let g:buffet_tab_icon = "\uf00a"
 let g:buffet_left_trunc_icon = "\uf0a8"
 let g:buffet_right_trunc_icon = "\uf0a9"
 
-" ------------------ deoplete -----------------------
-let g:deoplete#enable_at_startup = 1
 
 " ======================== Languages ==========================
 
