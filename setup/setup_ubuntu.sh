@@ -80,8 +80,8 @@ get_python3() {
 deploy_zsh() {
     MSG+=(">>> deploying zsh configs")
     sudo cp $ENV/keitoku.zsh-theme $OMZ/themes/keitoku.zsh-theme
-    cp $ENV/zshrc ~/.zshrc
-    cp $ENV/zshrc.ubuntu ~/.zshrc.native
+    sudo cp $ENV/zshrc ~/.zshrc
+    sudo cp $ENV/zshrc.ubuntu ~/.zshrc.native
 }
 
 get_kbuild() {
