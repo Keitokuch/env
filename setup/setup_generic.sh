@@ -44,9 +44,9 @@ get_vimplug() {
     parse_options $@
     if [[ ! -f  ~/.local/share/nvim/site/autoload/plug.vim ]]; then 
         [[ $silent ]] || MSG+=(">>> installing vim-plug <<<")
-        curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
+        sudo curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
             https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-        curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
+        sudo curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
             https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
     else
         [[ $silent ]] || MSG+=("=== vim-plug already installed ===")
