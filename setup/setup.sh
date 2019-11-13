@@ -1,97 +1,61 @@
-#! /bin/bash
+#! /usr/bin/env bash 
 
-OMZ=~/.oh-my-zsh
-TMP=~/.tmux/plugins
+declare -a MSG=()
 
-# get zsh
-if ! [ -x "$(command -v zsh)" ]; then
-	sudo apt install zsh
-    if [[ -x "/bin/zsh" ]]; then
-        chsh -s "/bin/zsh"
-    else 
-        chsh -s $(which zsh) 
+parse_options() {
+    #for var in "$@"
+    #do
+    #    [[ $var == f ]] && forced=1
+    #    [[ $var == s ]] && silent=1
+    #    [[ $var == v ]] && ver=1
+    #    [[ $ver ]] && VERSION=$var
+    #done
+    unset silent forced VERSION
+    while getopts ":fsv:" opt; do
+        case $opt in
+            f)
+                forced=1
+                ;;
+            s)
+                silent=1
+                ;;
+            v)
+                VERSION=$OPTARG
+                ;; 
+        esac 
+    done
+}
+
+# print log
+put_msg() {
+    for msg in "${MSG[@]}"; do
+        echo $msg
+    done
+}
+
+. $SETUP/setup_generic.sh
+if [[ "$OSTYPE" == "linux-gnu" ]]; then
+    if [ -f /etc/os-release ]; then
+        . /etc/os-release
+        OS=$ID
+        VER=$VERSION_ID
+        if [[ $OS == "centos" ]]; then
+            . $SETUP/setup_centos.sh
+        elif [[ $OS == "ubuntu" ]]; then
+            . $SETUP/setup_ubuntu.sh
+        else
+            echo "Failed: linux distro $OS not supported."
+            exit 1
+        fi
+    else
+        echo "Failed: linux distro not recognized."
+        exit 1
     fi
-    echo ">>> installed zsh <<<"
+elif [[ "$OSTYPE" == "darwin"* ]]; then
+    . $SETUP/setup_macos.sh
 else
-    echo "=== zsh already installed ==="
-fi 
-
-
-# get tmux
-if ! [[ -x $(command -v tmux) ]]; then
-	sudo apt install tmux 
-    echo ">>> installed tmux <<<"
-else
-    echo "=== tmux already installed ==="
-fi 
-
-# get curl
-if ! [[ -x $(command -v curl) ]]; then
-	sudo apt install curl 
-    echo ">>> installed curl <<<"
-else
-    echo "=== curl already installed ==="
-fi 
-
-# install nodejs for coc.nvim
-#curl -sL install-node.now.sh/lts | bash
-if ! [[ -x $(command -v node) ]]; then
-    sudo apt install -y nodejs
-    echo ">>> installed nodejs <<<"
-else 
-    echo "=== nodejs already installed ==="
-fi 
-
-if ! [[ -x $(command -v nvim) ]]; then
-    sudo apt install neovim 
-    echo ">>> installed neovim"
-else 
-    echo "=== neovim already installed ==="
+    echo "Failed: OS type $OSTYPE not supported."
+    exit 1
 fi
 
-# Vim plug       
-if [[ ! -f  ~/.local/share/nvim/site/autoload/plug.vim ]]; then 
-    echo ">>> installing vim-plug <<<"
-    curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
-        https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-    curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
-        https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-else
-    echo "=== vim-plug already installed ==="
-fi 
 
-# get tpm
-if [[ ! -d "$TMP/tpm" ]]; then
-	git clone https://github.com/tmux-plugins/tpm.git ~/.tmux/plugins/tpm
-fi 
-
-# deploy configs
-echo ">>> setting zsh configs"
-cp ./keitoku.zsh-theme $OMZ/themes/keitoku.zsh-theme
-
-cp ./zshrc ~/.zshrc
-zsh ~/.zshrc
-
-echo ">>> setting tmux configs"
-tic ./utils/xterm-256color-italic.terminfo 
-cp ./tmux.conf ~/.tmux.conf 
-
-mkdir -p ~/.config/nvim/
-echo ">>> setting vim configs"
-cp ./vimrc ~/.vimrc
-cp ./init.vim ~/.config/nvim/init.vim 
-
-
-# vim colorscheme
-mkdir -p ~/.vim/colors/ 
-mkdir -p ~/.config/nvim/colors/
-cp ./vim-keitoku.vim ~/.vim/colors/ 
-cp ./vim-keitoku.vim ~/.config/nvim/colors/
-
-# get oh-my-zsh
-if [[ ! -d $OMZ ]]; then
-	sh -c "$(wget https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh -O -)"
-    echo ">>> installed oh-my-zsh <<<"
-else
-    echo "=== oh-my-zsh already installed ==="
-fi

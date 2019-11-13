@@ -5,7 +5,6 @@ SETUP=$ENV/setup
 SRC=$ENV/src
 . $SETUP/setup_generic.sh
 
-
 PY_VERSION=3.6.8
 TMUX_VERSION=2.9a
 
