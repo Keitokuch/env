@@ -58,6 +58,8 @@ let mapleader=" "
 inoremap jj <ESC>
 map q <ESC>
 nnoremap Q q
+cnoremap qq <C-c>
+cnoremap jj <C-c>
 map <C-i> 10k
 map <C-d> 10j
 nnoremap Y :%y<CR>
@@ -334,7 +336,7 @@ let g:Lf_NormalMap = {
 let g:Lf_CommandMap = { '<C-j>' : ['<M-j>', '<Down>'], '<C-k>' : ['<M-k>', '<Up>'] }
 
 " ------------------------------ ctrlsf ----------------------------
-nmap     <C-f> <Plug>CtrlSFVwordPath
+nmap     <C-f> <Plug>CtrlSFCwordPath
 vmap     <C-f> <Plug>CtrlSFVwordPath
 nnoremap <leader>f :CtrlSFToggle<CR>
 
