@@ -3,7 +3,7 @@
 ENV="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 SETUP=$ENV/setup
 SRC=$ENV/src
-. $SETUP/setup_generic.sh
+. $SETUP/setup.sh
 
 PY_VERSION=3.6.8
 TMUX_VERSION=2.9a
