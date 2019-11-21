@@ -175,6 +175,7 @@ Plug 'bagrat/vim-buffet'
 Plug 'Shougo/neosnippet.vim'
 Plug 'Shougo/neosnippet-snippets'
 Plug 'scrooloose/nerdcommenter'
+Plug 'easymotion/vim-easymotion'
 
 call plug#end()
 
@@ -243,6 +244,13 @@ map <silent> <leader>i <Plug>InterestingWords<nop>
 map <silent> <leader>I <Plug>InterestingWordsClear
 map n <Plug>InterestingWordsForeward
 map N <Plug>InterestingWordsBackward
+
+"" ---------------------- easymotion -------------------------------
+nmap <CR> <Plug>(easymotion-overwin-f2)
+nmap [ <Plug>(easymotion-overwin-f2)
+let g:EasyMotion_smartcase = 1
+map  / <Plug>(easymotion-sn)
+omap / <Plug>(easymotion-tn)
 
 "" ------------------------------------ coc.nvim -------------------------------------------
 " coc-python, coc-json, coc-pairs, coc-vimtex, coc-html,
