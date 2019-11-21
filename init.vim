@@ -237,7 +237,7 @@ let g:gitgutter_map_keys = 0
 "" -------------------- nerdcommenter ----------------
 let g:NERDSpaceDelims = 1
 let g:NERDDefaultAlign = 'left'
-nmap <leader>/ <plug>NERDCommenterInvert
+map <leader>/ <plug>NERDCommenterInvert
 imap j; <plug>NERDCommenterInsert
 
 
