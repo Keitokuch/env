@@ -3,6 +3,26 @@
 OS=Ubuntu
 
 
+get_ag() {
+    parse_options $@
+    if [[ $forced ]] || ! [[ -x $(command -v ag) ]]; then
+        sudo apt-get install silversearcher-ag
+        [[ $silent ]] || MSG+=(">>> installed ag <<<")
+    else
+        [[ $silent ]] || MSG+=("=== ag already installed ===")
+    fi 
+}
+
+get_curl() {
+    parse_options $@
+    if [[ $forced ]] || ! [[ -x $(command -v curl) ]]; then
+        sudo apt-get install curl
+        [[ $silent ]] || MSG+=(">>> installed curl <<<")
+    else
+        [[ $silent ]] || MSG+=("=== curl already installed ===")
+    fi 
+}
+
 get_tmux() {
     parse_options $@
     if [[ $forced ]] || [[ ! -x $(command -v tmux) ]] ; then
@@ -24,7 +44,6 @@ get_tmux() {
         git clone https://github.com/tmux-plugins/tpm.git ~/.tmux/plugins/tpm
     fi
 }
-
 
 get_zsh() {
     parse_options $@
@@ -54,7 +73,6 @@ get_nvim() {
     fi
 }
 
-
 get_nodejs() {
     parse_options $@
     if [[ $forced ]] || ! [[ -x $(command -v node) ]]; then
@@ -64,7 +82,6 @@ get_nodejs() {
         [[ $silent ]] || MSG+=("=== nodejs already installed ===")
     fi 
 }
-
 
 get_python3() {
     parse_options $@

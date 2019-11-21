@@ -17,6 +17,7 @@ get_vimplug
 get_nodejs
 get_OMZ
 get_ctags
+get_ag
 
 deploy_configs
 

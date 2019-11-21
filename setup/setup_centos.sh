@@ -2,6 +2,15 @@
 
 OS=CentOS
 
+get_ag() {
+    parse_options $@
+    if [[ $forced ]] || ! [[ -x $(command -v ag) ]]; then
+        yum install the_silver_searcher
+        [[ $silent ]] || MSG+=(">>> installed ag <<<")
+    else
+        [[ $silent ]] || MSG+=("=== ag already installed ===")
+    fi 
+}
 
 get_python3() {
     VERSION=$PY_VERSION

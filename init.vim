@@ -250,6 +250,7 @@ map N <Plug>InterestingWordsBackward
 "" ---------------------- easymotion -------------------------------
 nmap <CR> <Plug>(easymotion-overwin-f2)
 nmap [ <Plug>(easymotion-overwin-f2)
+nmap ; <Plug>(easymotion-overwin-f2)
 let g:EasyMotion_smartcase = 1
 map  / <Plug>(easymotion-sn)
 omap / <Plug>(easymotion-tn)

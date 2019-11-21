@@ -89,5 +89,7 @@ get_ranger() {
 get_ctags() {
     get_invalid ${FUNCNAME[0]}
 }
-
+get_ag() {
+    get_invalid ${FUNCNAME[0]}
+}
 
