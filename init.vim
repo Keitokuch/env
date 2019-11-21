@@ -174,6 +174,7 @@ Plug 'bagrat/vim-buffet'
 "Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'Shougo/neosnippet.vim'
 Plug 'Shougo/neosnippet-snippets'
+Plug 'scrooloose/nerdcommenter'
 
 call plug#end()
 
@@ -229,6 +230,13 @@ let g:airline#extensions#tabline#keymap_ignored_filetypes = ['vimfiler', 'nerdtr
 "" ------------------ vim-gitgutter -------------------
 " unmap conflict leader combo 
 let g:gitgutter_map_keys = 0 
+
+"" -------------------- nerdcommenter ----------------
+let g:NERDSpaceDelims = 1
+let g:NERDDefaultAlign = 'left'
+nmap <leader>/ <plug>NERDCommenterInvert
+imap j; <plug>NERDCommenterInsert
+
 
 "" ------------------- interesting words -------------------
 map <silent> <leader>i <Plug>InterestingWords<nop>
