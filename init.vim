@@ -309,7 +309,7 @@ let g:coc_snippet_prev = '<S-tab>'
 "
 
 " ------------------------- Tagbar ----------------------------
-map <leader>t :TagbarToggle<CR>
+map <leader>T :TagbarToggle<CR>
 map st :TagbarOpen fj<CR>
 map <silent><expr> st b:current_syntax == "tagbar" ? "\<C-w>p" : ":TagbarOpen fj<CR>"
 let g:tagbar_width = 25
@@ -328,7 +328,9 @@ let g:gutentags_ctags_tagfile = '.tags'
 let g:Lf_ShowRelativePath = -1
 let g:Lf_HideHelp = 1
 map <leader>r :LeaderfFunction<cr>
-map <leader>o :LeaderfFile<cr>
+map <leader>t :LeaderfTag<cr>
+map <leader>o :LeaderfBuffer<cr>
+map <leader>O :LeaderfFile<cr>
 let g:Lf_NormalMap = {
 	\ "File":   [["<leader>o", ':exec g:Lf_py "fileExplManager.quit()"<CR>']],
 	\ "Buffer": [["<ESC>", ':exec g:Lf_py "bufExplManager.quit()"<CR>']],
@@ -425,6 +427,7 @@ let g:pymode_trim_whitespaces = 1
 let g:pymode_lint_cwindow = 0 
 let g:pymode_motion = 1
 let g:pymode_lint_checkers = ['pep8']
+let g:pymode_run_bind = '<leader>c'
 hi def link pythonParam             Identifier
 hi def link pythonClassParameters   Identifier
 hi def link pythonSelf              Conventional
