@@ -1,7 +1,7 @@
 " neovim specific 
 let g:python2_host_prog = system('which python')[:-2]
 let g:python3_host_prog = system('which python3')[:-2]
- 
+
 " ----------------- Options ----------------
 syntax on 
 set nocompatible
@@ -63,6 +63,7 @@ cnoremap jj <C-c>
 map <C-i> 10k
 map <C-d> 10j
 nnoremap Y :%y<CR>
+nnoremap <leader>= gg=G<C-o>
 command Sudow w !sudo dd of=%
 
 "" Split
@@ -183,9 +184,9 @@ call plug#end()
 
 " Automatically install missing plugins on startup
 autocmd VimEnter *
-  \  if len(filter(values(g:plugs), '!isdirectory(v:val.dir)'))
-  \|   PlugInstall --sync | q
-  \| endif
+            \  if len(filter(values(g:plugs), '!isdirectory(v:val.dir)'))
+            \|   PlugInstall --sync | q
+            \| endif
 
 " ====================== Plugin Configs ==========================
 
@@ -262,29 +263,29 @@ omap / <Plug>(easymotion-tn)
 " coc-python, coc-json, coc-pairs, coc-vimtex, coc-html,
 " coc-neosnippet, coc-java, coc-snippets
 function! s:check_back_space() abort
-  let col = col('.') - 1
-  return !col || getline('.')[col - 1]  =~ '\s'
+    let col = col('.') - 1
+    return !col || getline('.')[col - 1]  =~ '\s'
 endfunction
 
 function! s:show_documentation()
-  if (index(['vim','help'], &filetype) >= 0)
-    execute 'h '.expand('<cword>')
-  else
-    call CocAction('doHover')
-  endif
+    if (index(['vim','help'], &filetype) >= 0)
+        execute 'h '.expand('<cword>')
+    else
+        call CocAction('doHover')
+    endif
 endfunction
 
 " use <tab> and <s-tab> for trigger completion and navigate to complete items
 inoremap <silent><expr> <Tab> pumvisible() ? "\<C-n>" :
-      \ <SID>check_back_space() ? "\<Tab>" :
-      \ coc#refresh()
+            \ <SID>check_back_space() ? "\<Tab>" :
+            \ coc#refresh()
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 
 " use <tab> to jump in snippets
 inoremap <silent><expr> <TAB>
-      \ pumvisible() ? "\<C-n>":
-      \ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
-      \ "\<TAB>"
+            \ pumvisible() ? "\<C-n>":
+            \ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
+            \ "\<TAB>"
 
 " use <cr> to confirm completion
 inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
@@ -295,7 +296,7 @@ nnoremap <silent> K :call <SID>show_documentation()<CR>
 
 autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
 " Remap for rename current word
-nmap <leader>rn <Plug>(coc-rename)
+nmap \rn <Plug>(coc-rename)
 " Remap keys for gotos
 nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gy <Plug>(coc-type-definition)
@@ -310,7 +311,6 @@ let g:coc_snippet_prev = '<S-tab>'
 
 " ------------------------- Tagbar ----------------------------
 map <leader>T :TagbarToggle<CR>
-map st :TagbarOpen fj<CR>
 map <silent><expr> st b:current_syntax == "tagbar" ? "\<C-w>p" : ":TagbarOpen fj<CR>"
 let g:tagbar_width = 25
 let g:tagbar_autofocus = 0
@@ -332,13 +332,13 @@ map <leader>t :LeaderfTag<cr>
 map <leader>o :LeaderfBuffer<cr>
 map <leader>O :LeaderfFile<cr>
 let g:Lf_NormalMap = {
-	\ "File":   [["<leader>o", ':exec g:Lf_py "fileExplManager.quit()"<CR>']],
-	\ "Buffer": [["<ESC>", ':exec g:Lf_py "bufExplManager.quit()"<CR>']],
-	\ "Mru":    [["<ESC>", ':exec g:Lf_py "mruExplManager.quit()"<CR>']],
-	\ "Tag":    [["<ESC>", ':exec g:Lf_py "tagExplManager.quit()"<CR>']],
-	\ "Function":    [["<leader>p", ':exec g:Lf_py "functionExplManager.quit()"<CR>']],
-	\ "Colorscheme":    [["<ESC>", ':exec g:Lf_py "colorschemeExplManager.quit()"<CR>']],
-	\ }
+            \ "File":   [["<leader>o", ':exec g:Lf_py "fileExplManager.quit()"<CR>']],
+            \ "Buffer": [["<ESC>", ':exec g:Lf_py "bufExplManager.quit()"<CR>']],
+            \ "Mru":    [["<ESC>", ':exec g:Lf_py "mruExplManager.quit()"<CR>']],
+            \ "Tag":    [["<ESC>", ':exec g:Lf_py "tagExplManager.quit()"<CR>']],
+            \ "Function":    [["<leader>p", ':exec g:Lf_py "functionExplManager.quit()"<CR>']],
+            \ "Colorscheme":    [["<ESC>", ':exec g:Lf_py "colorschemeExplManager.quit()"<CR>']],
+            \ }
 let g:Lf_CommandMap = { '<C-j>' : ['<M-j>', '<Down>'], '<C-k>' : ['<M-k>', '<Up>'] }
 
 " ------------------------------ ctrlsf ----------------------------
@@ -373,8 +373,8 @@ let g:vimtex_quickfix_autoclose_after_keystrokes = 3
 let g:vimtex_quickfix_open_on_warning = 0 
 let g:vimtex_quickfix_ignore_all_warnings = 1
 let g:vimtex_compiler_latexmk = {
-    \ 'build_dir' : '.latex_aux',
-    \}
+            \ 'build_dir' : '.latex_aux',
+            \}
 augroup vimtex_config
     autocmd Filetype tex nmap <leader>c :VimtexCompile<CR>
     " Start Compilation automatically on enter?
