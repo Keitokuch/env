@@ -36,7 +36,7 @@ set laststatus=2    "always show status
 set clipboard=unnamed 
 set mouse=a
 set termguicolors 
-set scrolloff=18
+set scrolloff=13
 set showtabline=2
 autocmd FileType help wincmd L | vert resize 80
 set noswapfile
@@ -249,9 +249,8 @@ map n <Plug>InterestingWordsForeward
 map N <Plug>InterestingWordsBackward
 
 "" ---------------------- easymotion -------------------------------
-map <CR> <Plug>(easymotion-overwin-f2)
-map [ <Plug>(easymotion-overwin-f2)
-map ; <Plug>(easymotion-s2)
+map [ <Plug>(easymotion-overwin-f)
+map ; <Plug>(easymotion-s)
 map f <Plug>(easymotion-fl)
 map F <Plug>(easymotion-Fl)
 let g:EasyMotion_smartcase = 1
