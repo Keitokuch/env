@@ -1,11 +1,15 @@
 #! /usr/bin/env zsh 
+
+ENV="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 OMZ=~/.oh-my-zsh
+DOTFILE=$ENV/dotfiles
+THEME=$ENV/themes
 
 zshrc() {
 	if [ -f ./zshrc.local ]; then
 		cp ./zshrc.local ~/.zshrc
 	else
-		cp ./zshrc ~/.zshrc
+		cp $DOTFILE/zshrc ~/.zshrc
 	fi
 	source ~/.zshrc
     echo ".zshrc updated"
@@ -16,9 +20,9 @@ vimrc() {
 	if [ -f ./vimrc.local ]; then
 		cp ./vimrc.local ~/.vimrc
 	else
-		cp ./vimrc ~/.vimrc
+		cp $DOTFILE/vimrc ~/.vimrc
 	fi 
-    cp ./init.vim ~/.config/nvim/init.vim 
+    cp $DOTFILE/init.vim ~/.config/nvim/init.vim 
     echo ".vimrc, init.vim updated"
 }
 
@@ -26,8 +30,8 @@ vimTheme() {
     if [ -f ./vim-keitoku.vim.local ]; then
         cp ./vim-keitoku.vim.local ~/.vim/colors/vim-keitoku.vim 
     else 
-        cp ./vim-keitoku.vim ~/.vim/colors/ 
-        cp ./vim-keitoku.vim ~/.config/nvim/colors/vim-keitoku.vim 
+        cp $THEME/vim-keitoku.vim ~/.vim/colors/ 
+        cp $THEME/vim-keitoku.vim ~/.config/nvim/colors/vim-keitoku.vim 
     fi 
     echo "vim colorscheme updated"
 }
@@ -36,7 +40,7 @@ tm() {
 	if [ -f ./tmux.conf.local ]; then
 		cp ./tmux.conf.local ~/.tmux.conf
 	else
-		cp ./tmux.conf ~/.tmux.conf
+		cp $DOTFILE/tmux.conf ~/.tmux.conf
 	fi
 
 	if [ -n "$TMUX" ]; then
@@ -46,7 +50,7 @@ tm() {
 }
 
 zshTheme() {
-	cp ./keitoku.zsh-theme $OMZ/themes/keitoku.zsh-theme
+	cp $THEME/keitoku.zsh-theme $OMZ/themes/keitoku.zsh-theme
 	source ~/.zshrc
     echo "zsh-theme updated"
 }

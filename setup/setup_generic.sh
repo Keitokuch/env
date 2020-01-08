@@ -31,27 +31,27 @@ get_vimplug() {
 
 deploy_zsh() {
     MSG+=(">>> deploying zsh configs")
-    cp $ENV/keitoku.zsh-theme $OMZ/themes/keitoku.zsh-theme
-    cp $ENV/zshrc ~/.zshrc
+    cp $THEME/keitoku.zsh-theme $OMZ/themes/keitoku.zsh-theme
+    cp $DOTFILE/zshrc ~/.zshrc
 }
 
 deploy_tmux() {
     MSG+=(">>> deploying tmux configs")
     tic $ENV/utils/xterm-256color-italic.terminfo 
-    cp $ENV/tmux.conf ~/.tmux.conf 
+    cp $DOTFILE/tmux.conf ~/.tmux.conf 
 }
 
 deploy_vim() {
     MSG+=(">>> deploying vim configs")
     mkdir -p ~/.config/nvim/
-    sudo cp $ENV/vimrc ~/.vimrc
-    sudo cp $ENV/init.vim ~/.config/nvim/init.vim 
+    sudo cp $DOTFILE/vimrc ~/.vimrc
+    sudo cp $DOTFILE/init.vim ~/.config/nvim/init.vim 
 
     # vim colorscheme
     mkdir -p ~/.vim/colors/ 
     mkdir -p ~/.config/nvim/colors/
-    cp $ENV/vim-keitoku.vim ~/.vim/colors/ 
-    cp $ENV/vim-keitoku.vim ~/.config/nvim/colors/
+    cp $THEME/vim-keitoku.vim ~/.vim/colors/ 
+    cp $THEME/vim-keitoku.vim ~/.config/nvim/colors/
 }
 
 deploy_configs() {

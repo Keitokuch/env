@@ -2,6 +2,8 @@
 
 ENV="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 SETUP=$ENV/setup
+THEME=$ENV/themes
+DOTFILE=$ENV/dotfiles
 SRC=$ENV/src
 . $SETUP/setup.sh
 
