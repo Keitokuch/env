@@ -5,6 +5,9 @@ SETUP=$ENV/setup
 THEME=$ENV/themes
 DOTFILE=$ENV/dotfiles
 SRC=$ENV/src
+UTILS=$ENV/utils
+
+. $UTILS/env_utils.sh
 . $SETUP/setup.sh
 
 PY_VERSION=3.6.8

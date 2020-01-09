@@ -4,16 +4,14 @@ ENV="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 OMZ=~/.oh-my-zsh
 DOTFILE=$ENV/dotfiles
 THEME=$ENV/themes
+UTILS=$ENV/utils
+
+. $UTILS/env_utils.sh
 
 zshrc() {
-	if [ -f ./zshrc.local ]; then
-		cp ./zshrc.local ~/.zshrc
-	else
-		cp $DOTFILE/zshrc ~/.zshrc
-	fi
+    cp $DOTFILE/zshrc ~/.zshrc
 	source ~/.zshrc
     echo ".zshrc updated"
-
 }
 
 vimrc() {
