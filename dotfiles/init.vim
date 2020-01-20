@@ -139,10 +139,6 @@ autocmd Filetype tex inoremap <expr> $ strpart(getline('.'), col('.')-1, 1) == "
 " Start from last position
 au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
 
-" Restore Session 
-autocmd VimEnter * nested call StartSetup()
-autocmd VimLeave * call LeaveSetup()
-
 
 "" ========================== Vim-Plug ========================
 call plug#begin()
@@ -187,6 +183,10 @@ autocmd VimEnter *
             \  if len(filter(values(g:plugs), '!isdirectory(v:val.dir)'))
             \|   PlugInstall --sync | q
             \| endif
+
+" Restore Session 
+autocmd VimEnter * nested call StartSetup()
+autocmd VimLeave * call LeaveSetup()
 
 " ====================== Plugin Configs ==========================
 
@@ -442,6 +442,8 @@ hi def link LuaIn                   Conditional
 
 " ----------------- C family --------------
 hi def link cFormat                 Type  
+
+au BufNewFile,BufRead,BufReadPost *.ejs set syntax=html
 
 " ================== Utils ===================
 function! <SID>SynStack()
