@@ -44,8 +44,8 @@ deploy_tmux() {
 deploy_vim() {
     MSG+=(">>> deploying vim configs")
     mkdir -p ~/.config/nvim/
-    sudo cp $DOTFILE/vimrc ~/.vimrc
-    sudo cp $DOTFILE/init.vim ~/.config/nvim/init.vim 
+    cp $DOTFILE/vimrc ~/.vimrc
+    cp $DOTFILE/init.vim ~/.config/nvim/init.vim 
 
     # vim colorscheme
     mkdir -p ~/.vim/colors/ 

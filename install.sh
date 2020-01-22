@@ -11,12 +11,12 @@ UTILS=$ENV/utils
 . $SETUP/setup.sh
 
 PY_VERSION=3.6.8
-TMUX_VERSION=2.9a
+TMUX_VERSION=3.0
 
 get_curl
 get_zsh
 get_python3 
-get_tmux 
+get_tmux   
 get_nvim
 get_vimplug
 get_nodejs

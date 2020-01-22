@@ -6,7 +6,7 @@ OS=Ubuntu
 get_ag() {
     parse_options $@
     if [[ $forced ]] || ! [[ -x $(command -v ag) ]]; then
-        sudo apt-get install silversearcher-ag
+        sudo apt-get install -y silversearcher-ag
         [[ $silent ]] || MSG+=(">>> installed ag <<<")
     else
         [[ $silent ]] || MSG+=("=== ag already installed ===")
@@ -16,7 +16,7 @@ get_ag() {
 get_curl() {
     parse_options $@
     if [[ $forced ]] || ! [[ -x $(command -v curl) ]]; then
-        sudo apt-get install curl
+        sudo apt-get install -y curl
         [[ $silent ]] || MSG+=(">>> installed curl <<<")
     else
         [[ $silent ]] || MSG+=("=== curl already installed ===")
@@ -26,8 +26,7 @@ get_curl() {
 get_tmux() {
     parse_options $@
     if [[ $forced ]] || [[ ! -x $(command -v tmux) ]] ; then
-        sudo apt install libevent-dev
-        sudo apt install libncurses-dev
+        sudo apt install -y libevent-dev libncurses-dev
         wget https://github.com/tmux/tmux/releases/download/${TMUX_VERSION}/tmux-${TMUX_VERSION}.tar.gz
         tar -xvf tmux-${TMUX_VERSION}.tar.gz
         cd tmux-${TMUX_VERSION}
@@ -103,7 +102,7 @@ deploy_zsh() {
 
 get_kbuild() {
     sudo apt install build-essential kernel-package libncurses5-dev
-    apt install flex bison
+    apt install -y flex bison
     apt install openssl libssl-dev libelf-dev
     MSG+=(">>> installed kernel build dependencies.")
 }
@@ -111,7 +110,7 @@ get_kbuild() {
 get_ranger() {
     parse_options $@
     if [[ $forced ]] || [[ ! -x $(command -v ranger) ]]; then
-        sudo apt install ranger
+        sudo apt install -y ranger
         [[ $silent ]] || MSG+=(">>> installed ranger <<<")
     else
         [[ $silent ]] || MSG+=('=== ranger already installed ===')
@@ -122,7 +121,7 @@ get_ctags() {
     parse_options $@
     if [[ $forced ]] || [[ ! -x $(command -v ctags) ]]; then
         src=$SRC/ctags
-        sudo apt install \
+        sudo apt install -y \
             gcc make pkg-config autoconf automake \
             python3-docutils libseccomp-dev libjansson-dev \
             libyaml-dev libxml2-dev
