@@ -16,7 +16,7 @@ TMUX_VERSION=3.0a
 get_curl
 get_zsh
 get_python3 
-get_tmux   
+get_tmux   -f
 get_nvim
 get_vimplug
 get_nodejs
