@@ -171,8 +171,8 @@ Plug 'vim-scripts/TagHighlight'
 "Plug 'jistr/vim-nerdtree-tabs'
 Plug 'bagrat/vim-buffet'
 "Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-Plug 'Shougo/neosnippet.vim'
-Plug 'Shougo/neosnippet-snippets'
+" Plug 'Shougo/neosnippet.vim'
+" Plug 'Shougo/neosnippet-snippets'
 Plug 'scrooloose/nerdcommenter'
 Plug 'easymotion/vim-easymotion'
 
@@ -249,7 +249,7 @@ map n <Plug>InterestingWordsForeward
 map N <Plug>InterestingWordsBackward
 
 "" ---------------------- easymotion -------------------------------
-map [ <Plug>(easymotion-overwin-f)
+map <CR> <Plug>(easymotion-overwin-f)
 map ; <Plug>(easymotion-s)
 map f <Plug>(easymotion-fl)
 map F <Plug>(easymotion-Fl)
@@ -282,9 +282,10 @@ inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 
 " use <tab> to jump in snippets
 inoremap <silent><expr> <TAB>
-            \ pumvisible() ? "\<C-n>":
             \ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
-            \ "\<TAB>"
+            \ pumvisible() ? "\<C-n>":
+            \ <SID>check_back_space() ? "\<TAB>" :
+            \ coc#refresh()
 
 " use <cr> to confirm completion
 inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
@@ -302,8 +303,8 @@ nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
 
-let g:coc_snippet_next = '<tab>'
-let g:coc_snippet_prev = '<S-tab>'
+let g:coc_snippet_next = '<Tab>'
+let g:coc_snippet_prev = '<S-Tab>'
 
 " --------------------- neosnippet ------------------------
 "
@@ -338,7 +339,7 @@ let g:Lf_NormalMap = {
             \ "Function":    [["<leader>p", ':exec g:Lf_py "functionExplManager.quit()"<CR>']],
             \ "Colorscheme":    [["<ESC>", ':exec g:Lf_py "colorschemeExplManager.quit()"<CR>']],
             \ }
-let g:Lf_CommandMap = { '<C-j>' : ['<M-j>', '<Down>'], '<C-k>' : ['<M-k>', '<Up>'] }
+let g:Lf_CommandMap = { '<C-j>': ['<C-d>'], '<C-k>': ['<C-i>']}
 
 " ------------------------------ ctrlsf ----------------------------
 nmap     <C-f> <Plug>CtrlSFCwordPath
@@ -364,8 +365,8 @@ let g:VM_maps["Add Cursor At Pos"]  = '+'
 
 " ------------------------- vimtex -------------------------
 let g:tex_flavor='latex'
-let g:vimtex_view_method='skim'
-set conceallevel=1
+let g:vimtex_view_method='general'
+set conceallevel=0
 let g:tex_conceal='abdmgs'
 let g:vimtex_quickfix_mode=2
 let g:vimtex_quickfix_autoclose_after_keystrokes = 3
@@ -503,7 +504,7 @@ fu! LeaveSetup()
 endfu 
 
 function! MyTabline()
-    "let tabline=buffet#render()
+    " let tabline=buffet#render()
     let tabline=airline#extensions#tabline#get()
     if g:NERDTree.IsOpen()
         let width = winwidth(g:NERDTree.GetWinNum())
