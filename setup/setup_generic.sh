@@ -39,6 +39,8 @@ deploy_tmux() {
     MSG+=(">>> deploying tmux configs")
     tic $ENV/utils/xterm-256color-italic.terminfo 
     cp $DOTFILE/tmux.conf ~/.tmux.conf 
+    mkdir -p ~/.tmux
+    cp $DOTFILE/tmux.remote.conf ~/.tmux/tmux.remote.conf
 }
 
 deploy_vim() {

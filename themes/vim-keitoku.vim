@@ -13,7 +13,9 @@ endif
 
 let g:colors_name="vim-keitoku"
 let colors_name="vim-keitoku" 
-let s:black       = { "gui": "#1c2833", "cterm": "234" }
+" let s:black       = { "gui": "#1c2833", "cterm": "234" } "opaque
+" let s:black       = { "gui": "#162025", "cterm": "234" } "green
+let s:black       = { "gui": "#141e26", "cterm": "234" } "blue
 let s:red         = { "gui": "#e06c75", "cterm": "168" }
 let s:macro       = { "gui": "#ffa091", "cterm": "168" }
 let s:green       = { "gui": "#bae67e", "cterm": "149" }

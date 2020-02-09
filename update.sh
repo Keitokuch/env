@@ -41,10 +41,12 @@ tm() {
 		cp $DOTFILE/tmux.conf ~/.tmux.conf
 	fi
 
+    cp $DOTFILE/tmux.remote.conf ~/.tmux/tmux.remote.conf
+
 	if [ -n "$TMUX" ]; then
 		tmux source-file ~/.tmux.conf 
 	fi
-    echo ".tmux.conf updated"
+    echo ".tmux.conf tmux.remote.conf updated"
 }
 
 zshTheme() {
@@ -61,7 +63,7 @@ if [ $# -eq 0 ]; then
     zshTheme
     zshrc
 else
-    while getopts ":azvtZ" opt; do
+    while getopts ":VzvtZ" opt; do
         case $opt in
             z)
                 zshrc

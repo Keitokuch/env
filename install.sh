@@ -11,7 +11,7 @@ UTILS=$ENV/utils
 . $SETUP/setup.sh
 
 PY_VERSION=3.6.8
-TMUX_VERSION=3.0
+TMUX_VERSION=3.0a
 
 get_curl
 get_zsh
