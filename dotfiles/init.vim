@@ -339,7 +339,7 @@ let g:Lf_NormalMap = {
             \ "Function":    [["<leader>p", ':exec g:Lf_py "functionExplManager.quit()"<CR>']],
             \ "Colorscheme":    [["<ESC>", ':exec g:Lf_py "colorschemeExplManager.quit()"<CR>']],
             \ }
-let g:Lf_CommandMap = { '<C-j>': ['<C-d>'], '<C-k>': ['<C-i>']}
+let g:Lf_CommandMap = {}
 
 " ------------------------------ ctrlsf ----------------------------
 nmap     <C-f> <Plug>CtrlSFCwordPath
