@@ -254,8 +254,9 @@ map f <Plug>(easymotion-fl)
 map F <Plug>(easymotion-Fl)
 let g:EasyMotion_smartcase = 1
 let g:EasyMotion_do_mapping = 1
-map  / <Plug>(easymotion-sn)
-omap / <Plug>(easymotion-tn)
+nmap  / <Plug>(easymotion-sn)
+"d,y,c operators 
+omap / <Plug>(easymotion-tn)  
 
 "" ------------------------------------ coc.nvim -------------------------------------------
 " coc-python, coc-json, coc-pairs, coc-vimtex, coc-html,
@@ -309,7 +310,7 @@ let g:coc_snippet_prev = '<S-Tab>'
 "
 
 " ------------------------- Tagbar ----------------------------
-map <leader>T :TagbarToggle<CR>
+nnoremap tt :TagbarToggle<CR>
 map <silent><expr> st b:current_syntax == "tagbar" ? "\<C-w>p" : ":TagbarOpen fj<CR>"
 let g:tagbar_width = 25
 let g:tagbar_autofocus = 0
@@ -327,18 +328,25 @@ let g:gutentags_ctags_tagfile = '.tags'
 let g:Lf_ShowRelativePath = -1
 let g:Lf_HideHelp = 1
 map <leader>r :LeaderfFunction<cr>
-map <leader>t :LeaderfTag<cr>
+map <leader>t :LeaderfBufTagAll<cr>
+map <leader>T :LeaderfTag<cr>
 map <leader>o :LeaderfBuffer<cr>
 map <leader>O :LeaderfFile<cr>
+nmap  /        :LeaderfLine<cr>
 let g:Lf_NormalMap = {
-            \ "File":   [["<leader>o", ':exec g:Lf_py "fileExplManager.quit()"<CR>']],
+            \ "File":   [["<C-T>", ':exec g:Lf_py "fileExplManager.quit()"<CR>']],
             \ "Buffer": [["<ESC>", ':exec g:Lf_py "bufExplManager.quit()"<CR>']],
             \ "Mru":    [["<ESC>", ':exec g:Lf_py "mruExplManager.quit()"<CR>']],
             \ "Tag":    [["<ESC>", ':exec g:Lf_py "tagExplManager.quit()"<CR>']],
             \ "Function":    [["<leader>p", ':exec g:Lf_py "functionExplManager.quit()"<CR>']],
             \ "Colorscheme":    [["<ESC>", ':exec g:Lf_py "colorschemeExplManager.quit()"<CR>']],
             \ }
-let g:Lf_CommandMap = {}
+let g:Lf_CommandMap =  {'<ESC>': ['<C-T>', '<ESC>', '<C-Q>'], 
+            \  '<Home>': ['<C-A>'], 
+                        '<End>': ['<C-E>'], 
+                        '<Left>': ['<C-B>', '<Left'], 
+                        '<Right>': ['<C-F', '<Right>'], 
+                        }
 
 " ------------------------------ ctrlsf ----------------------------
 nmap     <C-f> <Plug>CtrlSFCwordPath
