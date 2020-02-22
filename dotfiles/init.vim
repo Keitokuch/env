@@ -351,8 +351,10 @@ let g:Lf_CommandMap =  {
             \           '<ESC>': ['<C-T>', '<ESC>', '<C-Q>'], 
             \           '<Home>': ['<C-A>'], 
             \           '<End>': ['<C-E>'], 
-            \           '<Left>': ['<C-B>', '<Left'], 
+            \           '<Left>': ['<C-B>', '<Left>'], 
             \           '<Right>': ['<C-F>', '<Right>'],
+            \           '<Up>': ['<C-P>'], 
+            \           '<Down>': ['<C-N>'], 
             \           '<C-J>': ['<Down>'],
             \           '<C-K>': ['<Up>']
             \            }
