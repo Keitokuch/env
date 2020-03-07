@@ -1,5 +1,8 @@
 #! /usr/bin/env bash 
 
+SRC=$ENV/src
+BUILD=$ENV/build
+
 . $SETUP/setup_generic.sh
 if [[ "$OSTYPE" == "linux-gnu" ]]; then
     if [ -f /etc/os-release ]; then

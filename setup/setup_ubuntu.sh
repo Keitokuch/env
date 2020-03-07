@@ -27,13 +27,15 @@ get_tmux() {
     parse_options $@
     if [[ $forced ]] || [[ ! -x $(command -v tmux) ]] ; then
         sudo apt install -y libevent-dev libncurses-dev
+        cd $BUILD
         wget https://github.com/tmux/tmux/releases/download/${TMUX_VERSION}/tmux-${TMUX_VERSION}.tar.gz
         tar -xvf tmux-${TMUX_VERSION}.tar.gz
         cd tmux-${TMUX_VERSION}
         ./configure && make
         sudo make install
-        cd $ENV && rm -rf tmux-${TMUX_VERSION}
-        rm tmux-${TMUX_VERSION}.tar.gz
+        # cd $ENV && rm -rf tmux-${TMUX_VERSION}
+        cd - && rm tmux-${TMUX_VERSION}.tar.gz
+        cd $ENV
         [[ $silent ]] || MSG+=(">>> installed tmux <<<")
     else
         [[ $silent ]] || MSG+=("=== tmux already installed ===")
@@ -63,7 +65,16 @@ get_zsh() {
 get_nvim() {
     parse_options $@
     if [[ $forced ]] || ! [[ -x $(command -v nvim) ]]; then
-        sudo apt install neovim
+        # sudo apt install neovim
+        build=$BUILD/neovim
+        sudo apt-get install -y \
+            ninja-build gettext libtool libtool-bin \
+            autoconf automake cmake g++ pkg-config unzip
+        git clone https://github.com/neovim/neovim.git $build
+        cd $build
+        make CMAKE_BUILD_TYPE=Release CMAKE_INSTALL_PREFIX=/usr/local/bin/nvim
+        sudo make install
+        cd $ENV
         sudo apt install python-neovim
         sudo apt install python3-neovim
         [[ $silent ]] || MSG+=(">>> installed neovim <<<")
@@ -120,13 +131,13 @@ get_ranger() {
 get_ctags() {
     parse_options $@
     if [[ $forced ]] || [[ ! -x $(command -v ctags) ]]; then
-        src=$SRC/ctags
+        build=$BUILD/ctags
         sudo apt install -y \
             gcc make pkg-config autoconf automake \
             python3-docutils libseccomp-dev libjansson-dev \
             libyaml-dev libxml2-dev
-        git clone https://github.com/universal-ctags/ctags.git $src
-        cd $src
+        git clone https://github.com/universal-ctags/ctags.git $build
+        cd $build
         ./autogen.sh
         ./configure && make
         sudo make install

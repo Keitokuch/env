@@ -4,7 +4,6 @@ ENV="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 SETUP=$ENV/setup
 THEME=$ENV/themes
 DOTFILE=$ENV/dotfiles
-SRC=$ENV/src
 UTILS=$ENV/utils
 
 . $UTILS/env_utils.sh
@@ -15,16 +14,16 @@ TMUX_VERSION=3.0a
 
 get_curl
 get_zsh
-get_python3 
-get_tmux   -f
-get_nvim
+# get_python3 
+get_tmux
+get_nvim  -f
 get_vimplug
 get_nodejs
 get_OMZ
 get_ctags
 get_ag
 
-deploy_configs
+# deploy_configs
 
 put_msg
-zsh
+# zsh
